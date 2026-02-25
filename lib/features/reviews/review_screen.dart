@@ -35,6 +35,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
   String? _visitCategory;
   String? _willReturn;
   final TextEditingController _additionalCommentsController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   @override
   void dispose() {
@@ -44,6 +45,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
     _highBController.dispose();
     _highCController.dispose();
     _additionalCommentsController.dispose();
+    _phoneController.dispose();
     super.dispose();
   }
 
@@ -138,11 +140,14 @@ class _ReviewScreenState extends State<ReviewScreen> {
 
       final comment = parts.join('\n\n');
 
+      final phone = _phoneController.text.trim();
+
       await _reviewService.createReview(
         restaurantId: widget.restaurant.id,
         deviceId: deviceId,
         rating: _selectedStars,
         comment: comment.isNotEmpty ? comment : null,
+        phone: phone.isNotEmpty ? phone : null,
       );
 
       if (mounted) {
@@ -477,6 +482,41 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   child: _buildTextField(
                     controller: _additionalCommentsController,
                     hint: l10n.translate('write_here_optional'),
+                  ),
+                ),
+                const SizedBox(height: 16),
+
+                // Phone (optional)
+                _buildSectionCard(
+                  title: l10n.translate('phone'),
+                  child: TextField(
+                    controller: _phoneController,
+                    keyboardType: TextInputType.phone,
+                    maxLength: 20,
+                    style: const TextStyle(
+                      color: AppColors.textPrimary,
+                      fontSize: 14,
+                    ),
+                    decoration: InputDecoration(
+                      hintText: '+998 XX XXX XX XX',
+                      hintStyle: const TextStyle(color: AppColors.textHint, fontSize: 13),
+                      counterText: '',
+                      contentPadding: const EdgeInsets.all(12),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: AppColors.border),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: AppColors.border),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(color: AppColors.primary),
+                      ),
+                      filled: true,
+                      fillColor: AppColors.background,
+                    ),
                   ),
                 ),
 

@@ -61,7 +61,7 @@ class AppLocalizations {
       'version': 'Versiya',
       'created': 'Jasalǵan',
       'project_partners': 'Joba hámkorları',
-      'about_description': 'Bul qollanba Qaraqalpaqstan Respublikası turızm salayatın asırıw hám xızmet kórsetiw sıpatın jaqsılaw maqsetinde islep shıǵıldı.',
+      'about_description': 'Bul mobil qosımshası Ózbekstan Respublikası Oliy Majlisi janındaǵı Jámáatlik fondınıń sociallıq buyırtpası tiykarında, «QR Gastronomic Quality» joybarı sheńberinde DMO Karakalpakstan tárepinen islep shıǵıldı.\n\nQosımsha járdeminde restoran hám kafelerdegi xızmet kórsetiw sapasın ańsat bahalawıńız múmkin. Stol ústindegi QR-koddı skanerleń, 5 ballıq sistema boyınsha óz bahalanıńızdı qaldırıń hám sizge ne jaqqanın yamasa neni jaqsılaw kerek ekenligin kórsetiń.\n\nBarlıq pikir-múláhazeler tuwrıdan-tuwrı restoran iyelerine hám administratorlarǵa jiberiledi. Bul bolsa xızmet sapasın arttırıwǵa, taǵamlardı jáne de dámliirek, ortalıqtı bálent dárejede hám keliwińizdi jaǵımlı qılıwǵa xızmet etedi.\n\nTez, qolaylı hám nátiyjeli — tuwrı bahalanıńızdı qaldırıń hám restoranlardıń bunnan da jaqsılanıwına óz úlesińizdi qosıń!',
 
       // Actions
       'close': 'Jabıw',
@@ -248,7 +248,7 @@ class AppLocalizations {
       'version': 'Versiya',
       'created': 'Yaratilgan',
       'project_partners': 'Loyiha hamkorlari',
-      'about_description': 'Ushbu ilova Qoraqalpog\'iston Respublikasi turizm salohiyatini oshirish va xizmat ko\'rsatish sifatini yaxshilash maqsadida ishlab chiqildi.',
+      'about_description': 'QR Gastronomic Quality ga xush kelibsiz!\n\nUshbu mobil ilova DMO Karakalpakstan tomonidan O\'zbekiston Respublikasi Oliy Majlisi huzuridagi Jamoat jamg\'armasi ijtimoiy buyurtmasi asosida «QR Gastronomic Quality» loyihasi doirasida ishlab chiqildi.\n\nIlova restoran va kafelarda xizmat sifatini osonlikcha baholash imkonini beradi. Stoldagi QR-kodni skaner qiling, besh ballik shkala bo\'yicha bahongizni qoldiring va nimani yoqtirgangizni yoki nimani yaxshilash mumkinligini bildiring.\n\nBarcha sharhlar to\'g\'ridan-to\'g\'ri egalar va administratorlarga yuboriladi, shunda ular xizmat sifatini oshirishi, taomlarni mazaliroq, muhitni qulayroq va tashrifni yoqimliroq qilishi mumkin.\n\nTez, qulay va samarali — halol baholar qoldiring va restoranlarga yaxshiroq bo\'lishga yordam bering!',
 
       // Actions
       'close': 'Yopish',
@@ -432,7 +432,7 @@ class AppLocalizations {
       'version': 'Версия',
       'created': 'Создано',
       'project_partners': 'Партнёры проекта',
-      'about_description': 'Это приложение разработано для повышения туристического потенциала Республики Каракалпакстан и улучшения качества обслуживания.',
+      'about_description': 'Добро пожаловать в QR Gastronomic Quality!\n\nЭто мобильное приложение разработано DMO Karakalpakstan в рамках проекта «QR Gastronomic Quality» по социальному заказу Общественного фонда при Олий Мажлисе Республики Узбекистан.\n\nПриложение позволяет легко оценивать качество сервиса в ресторанах и кафе. Просто сканируйте QR-код на столе, оставьте свою оценку по пятибалльной шкале и укажите, что вам понравилось или что можно улучшить.\n\nВсе отзывы направляются напрямую владельцам и администраторам, чтобы они могли повышать качество сервиса, делать блюда вкуснее, атмосферу комфортнее, а посещение - приятнее.\n\nБыстро, удобно и эффективно - оставляйте честные оценки и помогайте ресторанам становиться лучше!',
 
       // Actions
       'close': 'Закрыть',
@@ -622,7 +622,7 @@ class AppLocalizations {
       'version': 'Version',
       'created': 'Created',
       'project_partners': 'Project Partners',
-      'about_description': 'This app was developed to enhance the tourism potential of the Republic of Karakalpakstan and improve service quality.',
+      'about_description': 'Welcome to QR Gastronomic Quality!\n\nThis mobile app was developed by DMO Karakalpakstan as part of the «QR Gastronomic Quality» project, commissioned by the Public Foundation under the Oliy Majlis of the Republic of Uzbekistan.\n\nThe app makes it easy to rate service quality at restaurants and cafes. Simply scan the QR code on the table, leave your rating on a five-point scale, and indicate what you liked or what could be improved.\n\nAll reviews are sent directly to owners and administrators so they can improve service quality, make dishes tastier, the atmosphere more comfortable, and visits more enjoyable.\n\nFast, convenient and effective — leave honest ratings and help restaurants become better!',
 
       // Actions
       'close': 'Close',

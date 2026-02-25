@@ -74,18 +74,25 @@ class CreateReviewRequest {
   final String deviceId;
   final int rating;
   final String? comment;
+  final String? phone;
+  final List<int>? selectedOptionIds;
 
   CreateReviewRequest({
     required this.deviceId,
     required this.rating,
     this.comment,
+    this.phone,
+    this.selectedOptionIds,
   });
 
   Map<String, dynamic> toJson() {
     return {
       'device_id': deviceId,
       'rating': rating,
-      if (comment != null) 'comment': comment,
+      if (comment != null && comment!.isNotEmpty) 'comment': comment,
+      if (phone != null && phone!.isNotEmpty) 'phone': phone,
+      if (selectedOptionIds != null && selectedOptionIds!.isNotEmpty)
+        'selected_option_ids': selectedOptionIds,
     };
   }
 }

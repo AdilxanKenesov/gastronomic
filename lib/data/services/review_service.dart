@@ -39,6 +39,8 @@ class ReviewService {
     required String deviceId,
     required int rating,
     String? comment,
+    String? phone,
+    List<int>? selectedOptionIds,
   }) async {
     try {
       final uri = Uri.parse(
@@ -49,6 +51,8 @@ class ReviewService {
         deviceId: deviceId,
         rating: rating,
         comment: comment,
+        phone: phone,
+        selectedOptionIds: selectedOptionIds,
       );
 
       final response = await http.post(

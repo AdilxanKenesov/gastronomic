@@ -303,25 +303,20 @@ class SettingsScreen extends StatelessWidget {
                   const SizedBox(width: 40),
                 ],
               ),
-              const SizedBox(height: 30),
-              Text(
-                l10n.translate('project_partners'),
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primary,
+              const SizedBox(height: 16),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Text(
+                    l10n.translate('about_description'),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: AppColors.textPrimary,
+                      height: 1.6,
+                    ),
+                  ),
                 ),
               ),
-              const SizedBox(height: 12),
-              Text(
-                l10n.translate('about_description'),
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: AppColors.textPrimary,
-                  height: 1.5,
-                ),
-              ),
-              const Spacer(),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
