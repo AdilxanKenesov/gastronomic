@@ -114,6 +114,10 @@ class AppLocalizations {
       'view_menu': 'Menyudi kóriw',
       'view_on_map': 'Kartada kóriw',
       'write_review': 'Pikír qaldırıw',
+      'no_reviews': 'Háshe pikir qaldirilmagan',
+      'anonymous': 'Mehman',
+      'load_more': 'Kóbirek júklew',
+      'reviews_title': 'Pikírler',
 
       // Reviews
       'restaurant': 'Restoran',
@@ -301,6 +305,10 @@ class AppLocalizations {
       'view_menu': 'Menyuni ko\'rish',
       'view_on_map': 'Xaritada ko\'rish',
       'write_review': 'Sharh qoldirish',
+      'no_reviews': 'Hozircha sharhlar yo\'q',
+      'anonymous': 'Mehmon',
+      'load_more': 'Ko\'proq yuklash',
+      'reviews_title': 'Sharhlar',
 
       // Reviews
       'restaurant': 'Restoran',
@@ -488,6 +496,10 @@ class AppLocalizations {
       'view_menu': 'Посмотреть меню',
       'view_on_map': 'На карте',
       'write_review': 'Написать отзыв',
+      'no_reviews': 'Отзывов пока нет',
+      'anonymous': 'Гость',
+      'load_more': 'Загрузить ещё',
+      'reviews_title': 'Отзывы',
 
       // Reviews
       'restaurant': 'Ресторан',
@@ -675,6 +687,10 @@ class AppLocalizations {
       'view_menu': 'View menu',
       'view_on_map': 'View on map',
       'write_review': 'Write review',
+      'no_reviews': 'No reviews yet',
+      'anonymous': 'Guest',
+      'load_more': 'Load more',
+      'reviews_title': 'Reviews',
 
       // Reviews
       'restaurant': 'Restaurant',

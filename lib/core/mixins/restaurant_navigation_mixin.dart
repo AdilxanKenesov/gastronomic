@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../data/models/restaurant_model.dart';
-import '../../data/services/restaurant_service.dart';
-import '../../features/settings/bloc/settings_bloc.dart';
-import '../../features/restaurant_detail/restaurant_detail_screen.dart';
+import '../../domain/entities/restaurant.dart';
+import '../../data/datasources/remote/restaurant_remote_datasource.dart';
+import '../../presentation/bloc/settings_bloc.dart';
+import '../../presentation/pages/restaurant_detail_screen.dart';
 
 /// Restoran navigatsiya logikasini qayta ishlatish uchun mixin
 /// DRY prinsipi - bir joyda yozib, ko'p joyda ishlatish
 mixin RestaurantNavigationMixin<T extends StatefulWidget> on State<T> {
-  final RestaurantService restaurantService = RestaurantService();
+  final RestaurantRemoteDatasource restaurantService = RestaurantRemoteDatasource();
   final Map<int, Restaurant> loadedRestaurants = {};
   bool _isNavigating = false;
 

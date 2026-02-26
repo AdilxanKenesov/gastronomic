@@ -1,33 +1,64 @@
-class Review {
-  final int id;
-  final int restaurantId;
-  final int? userId;
-  final String? deviceId;
-  final int rating;
-  final String? comment;
-  final String? userName;
-  final String? userAvatar;
-  final bool isGuest;
-  final dynamic client;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
+import '../../domain/entities/review.dart';
 
-  Review({
-    required this.id,
-    required this.restaurantId,
-    this.userId,
-    this.deviceId,
-    required this.rating,
-    this.comment,
-    this.userName,
-    this.userAvatar,
-    this.isGuest = true,
-    this.client,
-    this.createdAt,
-    this.updatedAt,
-  });
+class QuestionConditionModel {
+  static QuestionCondition fromJson(Map<String, dynamic> json) {
+    return QuestionCondition(
+      field: json['field']?.toString() ?? 'rating',
+      operator: json['operator']?.toString() ?? '<=',
+      value: json['value'] is int ? json['value'] : int.tryParse(json['value']?.toString() ?? '0') ?? 0,
+    );
+  }
+}
 
-  factory Review.fromJson(Map<String, dynamic> json) {
+class QuestionOptionModel {
+  static QuestionOption fromJson(Map<String, dynamic> json) {
+    return QuestionOption(
+      id: json['id'] is int ? json['id'] : int.tryParse(json['id']?.toString() ?? '0') ?? 0,
+      text: json['text']?.toString() ?? '',
+    );
+  }
+}
+
+class SubQuestionModel {
+  static SubQuestion fromJson(Map<String, dynamic> json) {
+    return SubQuestion(
+      id: json['id'] is int ? json['id'] : int.tryParse(json['id']?.toString() ?? '0') ?? 0,
+      title: json['title']?.toString() ?? '',
+      isRequired: json['is_required'] == true,
+      allowMultiple: json['allow_multiple'] == true,
+      condition: json['condition'] != null
+          ? QuestionConditionModel.fromJson(json['condition'] as Map<String, dynamic>)
+          : null,
+      options: (json['options'] as List?)
+              ?.map((o) => QuestionOptionModel.fromJson(o as Map<String, dynamic>))
+              .toList() ??
+          [],
+    );
+  }
+}
+
+class ReviewQuestionModel {
+  static ReviewQuestion fromJson(Map<String, dynamic> json) {
+    return ReviewQuestion(
+      id: json['id'] is int ? json['id'] : int.tryParse(json['id']?.toString() ?? '0') ?? 0,
+      title: json['title']?.toString() ?? '',
+      isRequired: json['is_required'] == true,
+      allowMultiple: json['allow_multiple'] == true,
+      sortOrder: json['sort_order'] is int ? json['sort_order'] : int.tryParse(json['sort_order']?.toString() ?? '0') ?? 0,
+      options: (json['options'] as List?)
+              ?.map((o) => QuestionOptionModel.fromJson(o as Map<String, dynamic>))
+              .toList() ??
+          [],
+      subQuestions: (json['sub_questions'] as List?)
+              ?.map((s) => SubQuestionModel.fromJson(s as Map<String, dynamic>))
+              .toList() ??
+          [],
+    );
+  }
+}
+
+class ReviewModel {
+  static Review fromJson(Map<String, dynamic> json) {
     return Review(
       id: json['id'] is int ? json['id'] : int.tryParse(json['id']?.toString() ?? '0') ?? 0,
       restaurantId: json['restaurant_id'] is int
@@ -51,22 +82,56 @@ class Review {
           : null,
     );
   }
+}
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'restaurant_id': restaurantId,
-      'user_id': userId,
-      'device_id': deviceId,
-      'rating': rating,
-      'comment': comment,
-      'user_name': userName,
-      'user_avatar': userAvatar,
-      'is_guest': isGuest,
-      'client': client,
-      'created_at': createdAt?.toIso8601String(),
-      'updated_at': updatedAt?.toIso8601String(),
-    };
+class ReviewsResponseModel {
+  static ReviewsResponse fromJson(Map<String, dynamic> json) {
+    // API javobi: { "success": true, "data": [...], "statistics": {...}, "meta": {...} }
+    final rawList = (json['data'] ?? json['reviews']) as List? ?? [];
+    return ReviewsResponse(
+      reviews: rawList.map((r) => ReviewModel.fromJson(r as Map<String, dynamic>)).toList(),
+      stats: json['statistics'] != null
+          ? ReviewStatsModel.fromJson(json['statistics'] as Map<String, dynamic>)
+          : json['stats'] != null
+              ? ReviewStatsModel.fromJson(json['stats'] as Map<String, dynamic>)
+              : null,
+      meta: json['meta'] != null
+          ? PaginationMetaModel.fromJson(json['meta'] as Map<String, dynamic>)
+          : null,
+    );
+  }
+}
+
+class ReviewStatsModel {
+  static ReviewStats fromJson(Map<String, dynamic> json) {
+    Map<int, int> distribution = {};
+    final rawDist = json['rating_distribution'];
+    if (rawDist is Map) {
+      rawDist.forEach((key, value) {
+        final k = int.tryParse(key.toString());
+        final v = int.tryParse(value.toString()) ?? 0;
+        if (k != null) distribution[k] = v;
+      });
+    }
+    return ReviewStats(
+      averageRating: double.tryParse(
+              (json['average_rating'] ?? json['avg_rating'] ?? 0).toString()) ??
+          0.0,
+      totalReviews:
+          int.tryParse((json['total_reviews'] ?? json['count'] ?? 0).toString()) ?? 0,
+      ratingDistribution: distribution,
+    );
+  }
+}
+
+class PaginationMetaModel {
+  static PaginationMeta fromJson(Map<String, dynamic> json) {
+    return PaginationMeta(
+      currentPage: json['current_page'] as int,
+      lastPage: json['last_page'] as int,
+      perPage: json['per_page'] as int,
+      total: json['total'] as int,
+    );
   }
 }
 
@@ -94,85 +159,5 @@ class CreateReviewRequest {
       if (selectedOptionIds != null && selectedOptionIds!.isNotEmpty)
         'selected_option_ids': selectedOptionIds,
     };
-  }
-}
-
-class ReviewsResponse {
-  final List<Review> reviews;
-  final ReviewStats? stats;
-  final PaginationMeta? meta;
-
-  ReviewsResponse({
-    required this.reviews,
-    this.stats,
-    this.meta,
-  });
-
-  factory ReviewsResponse.fromJson(Map<String, dynamic> json) {
-    return ReviewsResponse(
-      reviews: json['reviews'] != null
-          ? (json['reviews'] as List)
-              .map((review) => Review.fromJson(review))
-              .toList()
-          : (json['data'] as List)
-              .map((review) => Review.fromJson(review))
-              .toList(),
-      stats: json['stats'] != null 
-          ? ReviewStats.fromJson(json['stats']) 
-          : null,
-      meta: json['meta'] != null 
-          ? PaginationMeta.fromJson(json['meta']) 
-          : null,
-    );
-  }
-}
-
-class ReviewStats {
-  final double averageRating;
-  final int totalReviews;
-  final Map<int, int> ratingDistribution;
-
-  ReviewStats({
-    required this.averageRating,
-    required this.totalReviews,
-    required this.ratingDistribution,
-  });
-
-  factory ReviewStats.fromJson(Map<String, dynamic> json) {
-    Map<int, int> distribution = {};
-    if (json['rating_distribution'] != null) {
-      (json['rating_distribution'] as Map<String, dynamic>).forEach((key, value) {
-        distribution[int.parse(key)] = value as int;
-      });
-    }
-
-    return ReviewStats(
-      averageRating: double.parse(json['average_rating'].toString()),
-      totalReviews: json['total_reviews'] as int,
-      ratingDistribution: distribution,
-    );
-  }
-}
-
-class PaginationMeta {
-  final int currentPage;
-  final int lastPage;
-  final int perPage;
-  final int total;
-
-  PaginationMeta({
-    required this.currentPage,
-    required this.lastPage,
-    required this.perPage,
-    required this.total,
-  });
-
-  factory PaginationMeta.fromJson(Map<String, dynamic> json) {
-    return PaginationMeta(
-      currentPage: json['current_page'] as int,
-      lastPage: json['last_page'] as int,
-      perPage: json['per_page'] as int,
-      total: json['total'] as int,
-    );
   }
 }

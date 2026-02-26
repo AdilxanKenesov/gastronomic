@@ -9,10 +9,11 @@ import 'core/services/connectivity_service.dart';
 import 'core/services/location_service.dart';
 import 'core/theme/app_colors.dart';
 import 'core/theme/app_theme.dart';
-import 'core/widgets/connectivity_wrapper.dart';
-import 'features/restaurants/bloc/restaurant_bloc.dart';
-import 'features/settings/bloc/settings_bloc.dart';
-import 'features/splash/splash_screen.dart';
+import 'presentation/widgets/connectivity_wrapper.dart';
+import 'presentation/bloc/restaurant_bloc.dart';
+import 'presentation/bloc/category_bloc.dart';
+import 'presentation/bloc/settings_bloc.dart';
+import 'presentation/pages/splash_screen.dart';
 
 
 void main() async {
@@ -68,12 +69,18 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => RestaurantBloc(),
         ),
+        BlocProvider(
+          create: (context) => CategoryBloc(),
+        ),
       ],
       child: BlocConsumer<SettingsBloc, SettingsState>(
         listener: (context, state) {
-          // Til o'zgarganda restoranlarni qayta yuklash
+          // Til o'zgarganda restoranlar va kategoriyalarni qayta yuklash
           context.read<RestaurantBloc>().add(
             LoadRestaurants(language: state.apiLanguage),
+          );
+          context.read<CategoryBloc>().add(
+            LoadCategories(language: state.apiLanguage),
           );
         },
         builder: (context, state) {
