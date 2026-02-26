@@ -43,3 +43,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Secret configuration — never commit real credentials
+lib/core/constants/env.dart
