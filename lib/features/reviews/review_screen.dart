@@ -443,7 +443,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 const SizedBox(height: 16),
 
                 _buildSectionCard(
-                  title: '1. ${l10n.translate('general_q1_title')}',
+                  title: '${l10n.translate('general_q1_title')}',
                   child: _buildSingleSelectOptions(
                     keys: const [
                       'visit_breakfast',
@@ -464,7 +464,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
 
                 // 2. Will you return?
                 _buildSectionCard(
-                  title: '2. ${l10n.translate('general_q2_title')}',
+                  title: '${l10n.translate('general_q2_title')}',
                   child: _buildSingleSelectOptions(
                     keys: const ['return_yes', 'return_maybe', 'return_no'],
                     selected: _willReturn,
@@ -478,7 +478,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
 
                 // 3. Additional comments
                 _buildSectionCard(
-                  title: '3. ${l10n.translate('general_q3_title')}',
+                  title: ' ${l10n.translate('general_q3_title')}',
                   child: _buildTextField(
                     controller: _additionalCommentsController,
                     hint: l10n.translate('write_here_optional'),
