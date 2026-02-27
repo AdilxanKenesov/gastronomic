@@ -24,26 +24,26 @@ class _IntroScreenState extends State<IntroScreen> {
   final Color primaryBlue = const Color(0xFF0049DB);
   final Color descriptionColor = const Color(0xFF687792);
 
-  final List<IntroPageData> _pages = [
+  List<IntroPageData> _buildPages(AppLocalizations l10n) => [
     IntroPageData(
-      image: 'assets/images/img4.png', // Biz siz uchun...
-      title: 'Biz siz uchun Nukusning eng yaxshi joylarini saralab qo\'ydik.',
-      description: 'Shaharning eng sara, tekshirilgan va yuqori reytingli restoranlari — bitta ilovada jamlandi.',
+      image: 'assets/images/img4.png',
+      title: l10n.translate('intro_title_1'),
+      description: l10n.translate('intro_desc_1'),
     ),
     IntroPageData(
-      image: 'assets/images/img1.png', // Nukusning eng sara...
-      title: 'Nukusning eng sara ta\'mini kashf eting',
-      description: 'Shahardagi eng yaxshi va sertifikatlangan restoranlarni oson toping.',
+      image: 'assets/images/img1.png',
+      title: l10n.translate('intro_title_2'),
+      description: l10n.translate('intro_desc_2'),
     ),
     IntroPageData(
-      image: 'assets/images/img2.png', // Menyu va narxlarni...
-      title: 'Menyu va narxlarni oldindan ko\'ring',
-      description: 'Buyurtma berishdan oldin taomlar rasmi va tarkibi bilan tanishing.',
+      image: 'assets/images/img2.png',
+      title: l10n.translate('intro_title_3'),
+      description: l10n.translate('intro_desc_3'),
     ),
     IntroPageData(
       image: 'assets/images/img3.png',
-      title: 'Haqiqiy baho va sharhlar',
-      description: 'Xizmat sifatini baholang va boshqalar fikrini o\'qing.',
+      title: l10n.translate('intro_title_4'),
+      description: l10n.translate('intro_desc_4'),
     ),
   ];
 
@@ -192,119 +192,124 @@ class _IntroScreenState extends State<IntroScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: bgColor,
-      body: Stack(
-        children: [
-          // 1. Rasmlar (Orqa fonda)
-          PageView.builder(
-            controller: _pageController,
-            onPageChanged: (page) => setState(() => _currentPage = page),
-            itemCount: _pages.length,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  const SizedBox(height: 60),
-                  Expanded(
-                    flex: 5,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Image.asset(_pages[index].image, fit: BoxFit.contain),
+    return BlocBuilder<SettingsBloc, SettingsState>(
+      builder: (context, settingsState) {
+        final l10n = AppLocalizations.of(context);
+        final pages = _buildPages(l10n);
+
+        return Scaffold(
+          backgroundColor: bgColor,
+          body: Stack(
+            children: [
+              // 1. Rasmlar (Orqa fonda)
+              PageView.builder(
+                controller: _pageController,
+                onPageChanged: (page) => setState(() => _currentPage = page),
+                itemCount: pages.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      const SizedBox(height: 60),
+                      Expanded(
+                        flex: 5,
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Image.asset(pages[index].image, fit: BoxFit.contain),
+                        ),
+                      ),
+                      const Spacer(flex: 4),
+                    ],
+                  );
+                },
+              ),
+
+              // Language button (har doim ko'rinadi — top-left)
+              Positioned(
+                top: 50,
+                left: 20,
+                child: GestureDetector(
+                  onTap: () => _showLanguageBottomSheet(context),
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.08),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Icon(Icons.language_rounded, color: primaryBlue, size: 22),
+                  ),
+                ),
+              ),
+
+              // 2. Progress Circle (Faqat 1-sahifadan keyin)
+              if (_currentPage > 0)
+                Positioned(
+                  top: 50,
+                  right: 25,
+                  child: CustomPaint(
+                    painter: CircularProgressPainter(
+                      currentStep: _currentPage,
+                      totalSteps: pages.length - 1,
+                      color: primaryBlue,
+                    ),
+                    child: Container(
+                      width: 45,
+                      height: 45,
+                      alignment: Alignment.center,
+                      child: Text(
+                        '$_currentPage/${pages.length - 1}',
+                        style: TextStyle(color: descriptionColor, fontSize: 12, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
-                  const Spacer(flex: 4), // Matn kartasi uchun joy
-                ],
-              );
-            },
-          ),
-
-          // Language button (har doim ko'rinadi — top-left)
-          Positioned(
-            top: 50,
-            left: 20,
-            child: GestureDetector(
-              onTap: () => _showLanguageBottomSheet(context),
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.08),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
                 ),
-                child: Icon(Icons.language_rounded, color: primaryBlue, size: 22),
-              ),
-            ),
-          ),
 
-          // 2. Progress Circle (Faqat 1-sahifadan keyin)
-          if (_currentPage > 0)
-            Positioned(
-              top: 50,
-              right: 25,
-              child: CustomPaint(
-                painter: CircularProgressPainter(
-                  currentStep: _currentPage, // 1/3, 2/3, 3/3 ko'rinishi uchun
-                  totalSteps: _pages.length - 1,
-                  color: primaryBlue,
-                ),
+              Align(
+                alignment: Alignment.bottomCenter,
                 child: Container(
-                  width: 45,
-                  height: 45,
-                  alignment: Alignment.center,
-                  child: Text(
-                    '$_currentPage/${_pages.length - 1}',
-                    style: TextStyle(color: descriptionColor, fontSize: 12, fontWeight: FontWeight.bold),
+                  height: MediaQuery.of(context).size.height * 0.45,
+                  width: double.infinity,
+                  padding: const EdgeInsets.fromLTRB(25, 35, 25, 30),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(35)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        pages[_currentPage].title,
+                        style: TextStyle(color: primaryBlue, fontSize: 24, fontWeight: FontWeight.bold, height: 1.1),
+                      ),
+                      const SizedBox(height: 15),
+                      Text(
+                        pages[_currentPage].description,
+                        style: TextStyle(color: descriptionColor, fontSize: 15, height: 1.4),
+                      ),
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 30.0),
+                        child: _buildButtons(l10n, pages),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ),
-
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.45,
-              width: double.infinity,
-              padding: const EdgeInsets.fromLTRB(25, 35, 25, 30),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(35)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    _pages[_currentPage].title,
-                    style: TextStyle(color: primaryBlue, fontSize: 24, fontWeight: FontWeight.bold, height: 1.1),
-                  ),
-                  const SizedBox(height: 15),
-                  Text(
-                    _pages[_currentPage].description,
-                    style: TextStyle(color: descriptionColor, fontSize: 15, height: 1.4),
-                  ),
-                  const Spacer(),
-                  // Tugmalar kartaning ichida, eng pastda
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 30.0), // SHU YERDA: Tugmalarni pastdan ko'tarish
-                    child: _buildButtons(),
-                  ),
-                ],
-              ),
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
-  Widget _buildButtons() {
+  Widget _buildButtons(AppLocalizations l10n, List<IntroPageData> pages) {
     if (_currentPage == 0) {
-      // Birinchi sahifa: Ikkita tugma
       return Row(
         children: [
           Expanded(
@@ -315,7 +320,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
               ),
-              child: Text('O\'tkazib yuborish', style: TextStyle(color: primaryBlue, fontWeight: FontWeight.w600)),
+              child: Text(l10n.translate('skip'), style: TextStyle(color: primaryBlue, fontWeight: FontWeight.w600)),
             ),
           ),
           const SizedBox(width: 15),
@@ -328,7 +333,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
                 elevation: 0,
               ),
-              child: const Text('Oldinga', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+              child: Text(l10n.translate('next'), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
             ),
           ),
         ],
@@ -338,7 +343,7 @@ class _IntroScreenState extends State<IntroScreen> {
         width: double.infinity,
         child: ElevatedButton(
           onPressed: () {
-            if (_currentPage < _pages.length - 1) {
+            if (_currentPage < pages.length - 1) {
               _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
             } else {
               _completeIntro();
@@ -351,7 +356,7 @@ class _IntroScreenState extends State<IntroScreen> {
             elevation: 0,
           ),
           child: Text(
-            _currentPage == _pages.length - 1 ? 'Ro\'yxatdan o\'tish' : 'Oldinga',
+            _currentPage == pages.length - 1 ? l10n.translate('intro_get_started') : l10n.translate('next'),
             style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16),
           ),
         ),

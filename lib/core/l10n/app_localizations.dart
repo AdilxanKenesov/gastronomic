@@ -203,6 +203,17 @@ class AppLocalizations {
       'example_atmosphere_negative_1': 'Shawqınlı',
       'example_atmosphere_negative_2': 'Tar joy',
       'example_atmosphere_negative_3': 'Tazalıq jaqpadı',
+
+      // Intro
+      'intro_title_1': 'Biz siz ushın Nókisdıń eń jaqsı jayların saylap qoydıq.',
+      'intro_desc_1': 'Qalańıń eń sapa, tekserilgen hám joqarı reyting restoranları — bir qosımshada jamlandi.',
+      'intro_title_2': 'Nókisdıń eń sara dámın tanıń',
+      'intro_desc_2': 'Qalada eń jaqsı hám sertifikatlangan restoranları ańsat tabıń.',
+      'intro_title_3': 'Menyu hám bahalardı aldın-ala kóriń',
+      'intro_desc_3': 'Buyırtpa beriwden aldın taamlardıń suretleri hám quramı menen tanısıń.',
+      'intro_title_4': 'Haqıyqıy baha hám pikírler',
+      'intro_desc_4': 'Xızmet sapasın bahalanıń hám basqalardıń pikirlerin oqıń.',
+      'intro_get_started': 'Bastawlaw',
     },
     'uz': {
       // App
@@ -394,6 +405,17 @@ class AppLocalizations {
       'example_atmosphere_negative_1': 'Shovqinli',
       'example_atmosphere_negative_2': 'Tor joy',
       'example_atmosphere_negative_3': 'Tozalik yoqmadi',
+
+      // Intro
+      'intro_title_1': 'Biz siz uchun Nukusning eng yaxshi joylarini saralab qo\'ydik.',
+      'intro_desc_1': 'Shaharning eng sara, tekshirilgan va yuqori reytingli restoranlari — bitta ilovada jamlandi.',
+      'intro_title_2': 'Nukusning eng sara ta\'mini kashf eting',
+      'intro_desc_2': 'Shahardagi eng yaxshi va sertifikatlangan restoranlarni oson toping.',
+      'intro_title_3': 'Menyu va narxlarni oldindan ko\'ring',
+      'intro_desc_3': 'Buyurtma berishdan oldin taomlar rasmi va tarkibi bilan tanishing.',
+      'intro_title_4': 'Haqiqiy baho va sharhlar',
+      'intro_desc_4': 'Xizmat sifatini baholang va boshqalar fikrini o\'qing.',
+      'intro_get_started': 'Boshlash',
     },
     'ru': {
       // App
@@ -585,6 +607,17 @@ class AppLocalizations {
       'example_atmosphere_negative_1': 'Шумно',
       'example_atmosphere_negative_2': 'Тесное место',
       'example_atmosphere_negative_3': 'Не понравилась чистота',
+
+      // Intro
+      'intro_title_1': 'Мы отобрали лучшие места Нукуса для вас.',
+      'intro_desc_1': 'Лучшие, проверенные рестораны города с высоким рейтингом — все в одном приложении.',
+      'intro_title_2': 'Откройте лучшие вкусы Нукуса',
+      'intro_desc_2': 'Легко найдите лучшие и сертифицированные рестораны города.',
+      'intro_title_3': 'Просматривайте меню и цены заранее',
+      'intro_desc_3': 'Ознакомьтесь с фото и составом блюд до оформления заказа.',
+      'intro_title_4': 'Реальные оценки и отзывы',
+      'intro_desc_4': 'Оценивайте качество сервиса и читайте мнения других гостей.',
+      'intro_get_started': 'Начать',
     },
     'en': {
       // App
@@ -776,6 +809,17 @@ class AppLocalizations {
       'example_atmosphere_negative_1': 'Too noisy',
       'example_atmosphere_negative_2': 'Cramped space',
       'example_atmosphere_negative_3': 'Cleanliness could be better',
+
+      // Intro
+      'intro_title_1': 'We handpicked the best places in Nukus for you.',
+      'intro_desc_1': 'The city\'s top-rated, verified restaurants — all in one app.',
+      'intro_title_2': 'Discover the finest flavors of Nukus',
+      'intro_desc_2': 'Easily find the best and certified restaurants in the city.',
+      'intro_title_3': 'View menus and prices in advance',
+      'intro_desc_3': 'Browse dish photos and descriptions before placing your order.',
+      'intro_title_4': 'Real ratings and reviews',
+      'intro_desc_4': 'Rate service quality and read what other guests think.',
+      'intro_get_started': 'Get started',
     },
   };
 
