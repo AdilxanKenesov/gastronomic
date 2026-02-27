@@ -160,17 +160,6 @@ All endpoints accept `Accept-Language: uz | ru | kk | en` header.
 
 ### Submit Review — Request Body
 
-```json
-{
-  "device_id": "uuid-string",
-  "rating": 5,
-  "comment": "Optional text comment",
-  "phone": "+998901234567",
-  "selected_option_ids": [1, 5, 12, 15]
-}
-```
-
----
 
 ## Technologies
 
