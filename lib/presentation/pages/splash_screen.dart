@@ -4,25 +4,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/services/connectivity_service.dart';
 import 'intro_screen.dart';
 import 'main_screen.dart';
-import '../../core/services/location_service.dart';
 
 class SplashScreen extends StatelessWidget {
   final SharedPreferences prefs;
-  final LocationService locationService;
   final ConnectivityService connectivityService;
 
   const SplashScreen({
     super.key,
     required this.prefs,
-    required this.locationService,
     required this.connectivityService,
   });
 
   Future<Widget> _decideStartScreen() async {
-    // Internet tekshiruvi ConnectivityWrapper da amalga oshiriladi
-
-    await locationService.requestPermission();
-
     final hasSeenIntro = prefs.getBool('has_seen_intro') ?? false;
 
     if (hasSeenIntro) {

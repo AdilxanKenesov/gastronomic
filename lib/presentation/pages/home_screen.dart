@@ -249,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> with RestaurantNavigationMixin 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
-      height: shouldShrink ? 125.0 + topPadding : 320.0 + topPadding,
+      height: shouldShrink ? 125.0 + topPadding : 300.0 + topPadding,
       width: double.infinity,
       decoration: const BoxDecoration(
         color: AppColors.orangeLight,
@@ -364,7 +364,7 @@ class _HomeScreenState extends State<HomeScreen> with RestaurantNavigationMixin 
             child: Container(
               margin: const EdgeInsets.only(top: 10, bottom: 5, right: 15, left: 15),
               width: 373,
-              height: 200,
+              height: 180,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(25),
                 child: Stack(

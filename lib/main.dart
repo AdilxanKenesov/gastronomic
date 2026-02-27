@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/l10n/app_localizations.dart';
 import 'core/services/connectivity_service.dart';
-import 'core/services/location_service.dart';
 import 'core/theme/app_colors.dart';
 import 'core/theme/app_theme.dart';
 import 'presentation/widgets/connectivity_wrapper.dart';
@@ -37,25 +36,21 @@ void main() async {
   );
 
   final prefs = await SharedPreferences.getInstance();
-  final locationService = LocationService();
   final connectivityService = ConnectivityService();
 
   runApp(MyApp(
     prefs: prefs,
-    locationService: locationService,
     connectivityService: connectivityService,
   ));
 }
 
 class MyApp extends StatelessWidget {
   final SharedPreferences prefs;
-  final LocationService locationService;
   final ConnectivityService connectivityService;
 
   const MyApp({
     super.key,
     required this.prefs,
-    required this.locationService,
     required this.connectivityService,
   });
 
@@ -116,7 +111,6 @@ class MyApp extends StatelessWidget {
               connectivityService: connectivityService,
               child: SplashScreen(
                 prefs: prefs,
-                locationService: locationService,
                 connectivityService: connectivityService,
               ),
             ),
