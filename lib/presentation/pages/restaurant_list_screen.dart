@@ -6,6 +6,7 @@ import '../../core/l10n/app_localizations.dart';
 import '../widgets/restaurant_card.dart';
 import '../widgets/map_restaurant_card.dart';
 import '../widgets/state_widgets.dart';
+import '../widgets/shimmer_widgets.dart';
 import '../../core/mixins/restaurant_navigation_mixin.dart';
 import '../../domain/entities/restaurant.dart';
 import '../bloc/settings_bloc.dart';
@@ -253,7 +254,9 @@ class _RestaurantListScreenState extends State<RestaurantListScreen>
     return BlocBuilder<RestaurantBloc, RestaurantState>(
       builder: (context, state) {
         if (state is RestaurantLoading) {
-          return const LoadingIndicator();
+          return const SingleChildScrollView(
+            child: RestaurantListShimmer(count: 4, imageHeight: 200, margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
+          );
         }
         if (state is RestaurantError) {
           return ErrorState(onRetry: _loadRestaurants);

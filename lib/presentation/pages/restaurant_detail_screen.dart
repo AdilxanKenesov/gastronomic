@@ -8,6 +8,7 @@ import '../../data/datasources/remote/menu_remote_datasource.dart';
 import '../bloc/settings_bloc.dart';
 import 'review_screen.dart';
 import 'restaurant_reviews_screen.dart';
+import '../widgets/shimmer_widgets.dart';
 
 class RestaurantDetailScreen extends StatefulWidget {
   final Restaurant restaurant;
@@ -81,9 +82,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
-          : CustomScrollView(
+      body: CustomScrollView(
         controller: _scrollController,
         slivers: [
           _buildSliverAppBar(),
@@ -115,32 +114,36 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
               ),
             ),
           ),
-          if (_menu != null && _menu!.sections.isNotEmpty)
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 50,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  itemCount: _menu!.sections.length + 1, // +1 for "Barcha"
-                  itemBuilder: (context, index) {
-                    if (index == 0) {
+          if (_isLoading)
+            const SliverToBoxAdapter(child: MenuGridShimmer(count: 6))
+          else ...[
+            if (_menu != null && _menu!.sections.isNotEmpty)
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 50,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: _menu!.sections.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index == 0) {
+                        return _buildCategoryItem(
+                          l10n.translate('all_items'),
+                          _selectedSectionIndex == 0,
+                          0,
+                        );
+                      }
                       return _buildCategoryItem(
-                        l10n.translate('all_items'),
-                        _selectedSectionIndex == 0,
-                        0,
+                        _menu!.sections[index - 1].name,
+                        _selectedSectionIndex == index,
+                        index,
                       );
-                    }
-                    return _buildCategoryItem(
-                      _menu!.sections[index - 1].name,
-                      _selectedSectionIndex == index,
-                      index,
-                    );
-                  },
+                    },
+                  ),
                 ),
               ),
-            ),
-          _buildMenuGrid(l10n),
+            _buildMenuGrid(l10n),
+          ],
           const SliverToBoxAdapter(child: SizedBox(height: 50)),
         ],
       ),

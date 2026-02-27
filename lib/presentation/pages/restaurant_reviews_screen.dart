@@ -5,6 +5,7 @@ import '../../domain/entities/restaurant.dart';
 import '../../domain/entities/review.dart';
 import '../../data/datasources/remote/review_remote_datasource.dart';
 import 'review_screen.dart';
+import '../widgets/shimmer_widgets.dart';
 
 class RestaurantReviewsScreen extends StatefulWidget {
   final Restaurant restaurant;
@@ -174,7 +175,20 @@ class _RestaurantReviewsScreenState extends State<RestaurantReviewsScreen> {
         ),
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
+          ? CustomScrollView(
+              slivers: [
+                const SliverToBoxAdapter(child: ReviewStatsShimmer()),
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (_, __) => const ReviewCardShimmer(),
+                      childCount: 5,
+                    ),
+                  ),
+                ),
+              ],
+            )
           : CustomScrollView(
               controller: _scrollController,
               slivers: [

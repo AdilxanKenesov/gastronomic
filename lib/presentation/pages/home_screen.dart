@@ -4,6 +4,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../widgets/restaurant_card.dart';
 import '../widgets/state_widgets.dart';
+import '../widgets/shimmer_widgets.dart';
 import '../../core/mixins/restaurant_navigation_mixin.dart';
 import '../bloc/restaurant_bloc.dart';
 import '../bloc/category_bloc.dart';
@@ -116,16 +117,7 @@ class _HomeScreenState extends State<HomeScreen> with RestaurantNavigationMixin 
     return BlocBuilder<CategoryBloc, CategoryState>(
       builder: (context, state) {
         if (state is CategoryLoading || state is CategoryInitial) {
-          return const SizedBox(
-            height: 90,
-            child: Center(
-              child: SizedBox(
-                width: 24,
-                height: 24,
-                child: CircularProgressIndicator(strokeWidth: 2),
-              ),
-            ),
-          );
+          return const CategoryListShimmer();
         }
 
         if (state is CategoryError) {
@@ -673,7 +665,23 @@ class _HomeScreenState extends State<HomeScreen> with RestaurantNavigationMixin 
     return BlocBuilder<RestaurantBloc, RestaurantState>(
       builder: (context, state) {
         if (state is RestaurantLoading) {
-          return const LoadingIndicator();
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 10),
+                child: Container(
+                  width: 130,
+                  height: 20,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE0E6EF),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                ),
+              ),
+              const RestaurantListShimmer(count: 3),
+            ],
+          );
         }
 
         if (state is RestaurantError) {
