@@ -136,6 +136,28 @@ lib/
 
 ---
 
+## Screenshots
+
+<table>
+  <tr>
+    <td><img src="assets/info/photo_1_2026-02-28_11-50-08.jpg" width="200"/></td>
+    <td><img src="assets/info/photo_2_2026-02-28_11-50-08.jpg" width="200"/></td>
+    <td><img src="assets/info/photo_3_2026-02-28_11-50-08.jpg" width="200"/></td>
+  </tr>
+  <tr>
+    <td><img src="assets/info/photo_4_2026-02-28_11-50-08.jpg" width="200"/></td>
+    <td><img src="assets/info/photo_5_2026-02-28_11-50-08.jpg" width="200"/></td>
+    <td><img src="assets/info/photo_6_2026-02-28_11-50-08.jpg" width="200"/></td>
+  </tr>
+  <tr>
+    <td><img src="assets/info/photo_7_2026-02-28_11-50-08.jpg" width="200"/></td>
+    <td><img src="assets/info/photo_8_2026-02-28_11-50-08.jpg" width="200"/></td>
+    <td><img src="assets/info/photo_9_2026-02-28_11-50-08.jpg" width="200"/></td>
+  </tr>
+</table>
+
+---
+
 ## API
 
 **Base URL:** defined in `lib/core/constants/env.dart` (gitignored — see setup below)
@@ -329,5 +351,5 @@ flutter build apk --release
 | Field | Value |
 |-------|-------|
 | **Developer** | DMO Karakalpakstan |
-| **Platform** | Android (min API 26) |
+| **Platform** | Android (min API 26) & iOS |
 | **Version** | 1.0.0+1 |

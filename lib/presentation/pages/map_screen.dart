@@ -107,8 +107,8 @@ class _MapScreenState extends State<MapScreen> {
             ),
             icon: PlacemarkIcon.single(
               PlacemarkIconStyle(
-                image: BitmapDescriptor.fromAssetImage('assets/images/marker.png'),
-                scale: isSelected ? 0.7 : 0.5,
+                image: BitmapDescriptor.fromAssetImage('assets/images/restaurant.png'),
+                scale: isSelected ? 0.5 : 0.3,
               ),
             ),
             opacity: 1.0,
