@@ -180,20 +180,6 @@ lib/
 
 All endpoints accept `Accept-Language: uz | ru | kk | en` header.
 
-### Submit Review — Request Body
-
-```json
-{
-  "device_id": "uuid-string",
-  "rating": 5,
-  "comment": "Optional text comment",
-  "phone": "+998901234567",
-  "selected_option_ids": [1, 5, 12, 15]
-}
-```
-
----
-
 ## Technologies
 
 ### Core
@@ -272,20 +258,6 @@ All endpoints accept `Accept-Language: uz | ru | kk | en` header.
 | **Build type** | Release: minify + resource shrink enabled |
 | **Maps SDK** | `com.yandex.android:maps.mobile:4.22.0-lite` |
 
-### Required Permissions
-
-```xml
-<uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<uses-permission android:name="android.permission.CAMERA" />
-```
-
----
-
-## Localization
-
 The app supports 4 languages managed in a single file (`app_localizations.dart`):
 
 | Code | Language | Region |
@@ -323,24 +295,6 @@ Language is stored in `SharedPreferences` and mapped to API `Accept-Language` he
 
 ### Setup
 
-```bash
-# Clone the repository
-git clone <repository-url>
-cd gastronomic
-
-# Configure environment
-cp lib/core/constants/env.example.dart lib/core/constants/env.dart
-# Then open env.dart and set your real API base URL
-
-# Install dependencies
-flutter pub get
-
-# Run on connected device
-flutter run
-
-# Build release APK
-flutter build apk --release
-```
 
 > **Note:** `lib/core/constants/env.dart` is listed in `.gitignore` and must never be committed.
 
@@ -351,5 +305,5 @@ flutter build apk --release
 | Field | Value |
 |-------|-------|
 | **Developer** | DMO Karakalpakstan |
-| **Platform** | Android (min API 26) & iOS |
+| **Platform** | Android (min API 26) |
 | **Version** | 1.0.0+1 |
