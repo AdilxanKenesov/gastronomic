@@ -342,7 +342,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                       ? Image.network(
                           widget.restaurant.brand!.logoUrl!,
                           fit: BoxFit.contain,
-                          errorBuilder: (_, __, ___) => const Icon(
+                          errorBuilder: (_, e, s) => const Icon(
                             Icons.restaurant,
                             size: 40,
                             color: AppColors.iconSecondary,

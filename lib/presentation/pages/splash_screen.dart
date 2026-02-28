@@ -36,7 +36,7 @@ class SplashScreen extends StatelessWidget {
           );
         }
 
-        return snapshot.data!;
+        return snapshot.data ?? const MainScreen();
       },
     );
   }

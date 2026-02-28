@@ -17,7 +17,7 @@ class SearchRemoteDatasource {
       };
       final uri = Uri.parse('${ApiConstants.baseUrl}${ApiConstants.search}')
           .replace(queryParameters: queryParams);
-      final response = await http.get(uri, headers: ApiConstants.headers(language: language));
+      final response = await http.get(uri, headers: ApiConstants.headers(language: language)).timeout(const Duration(seconds: 30));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         return SearchResponse.fromJson(jsonData);

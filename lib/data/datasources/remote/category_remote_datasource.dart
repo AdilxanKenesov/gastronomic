@@ -6,7 +6,7 @@ import '../../../domain/entities/restaurant.dart';
 class CategoryRemoteDatasource {
   Future<List<Category>> getCategories({String language = 'uz'}) async {
     final uri = Uri.parse('${ApiConstants.baseUrl}${ApiConstants.categories}');
-    final response = await http.get(uri, headers: ApiConstants.headers(language: language));
+    final response = await http.get(uri, headers: ApiConstants.headers(language: language)).timeout(const Duration(seconds: 30));
 
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body) as Map<String, dynamic>;

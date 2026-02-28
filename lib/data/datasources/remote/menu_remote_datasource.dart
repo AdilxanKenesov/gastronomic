@@ -8,7 +8,7 @@ class MenuRemoteDatasource {
   Future<RestaurantMenu> getRestaurantMenu({required int restaurantId, String language = 'uz'}) async {
     try {
       final uri = Uri.parse('${ApiConstants.baseUrl}${ApiConstants.restaurantMenu(restaurantId)}');
-      final response = await http.get(uri, headers: ApiConstants.headers(language: language));
+      final response = await http.get(uri, headers: ApiConstants.headers(language: language)).timeout(const Duration(seconds: 30));
 
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
@@ -32,7 +32,7 @@ class MenuRemoteDatasource {
   Future<MenuItem> getMenuItemDetail({required int menuItemId, String language = 'uz'}) async {
     try {
       final uri = Uri.parse('${ApiConstants.baseUrl}${ApiConstants.menuItemDetail(menuItemId)}');
-      final response = await http.get(uri, headers: ApiConstants.headers(language: language));
+      final response = await http.get(uri, headers: ApiConstants.headers(language: language)).timeout(const Duration(seconds: 30));
 
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);

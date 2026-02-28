@@ -11,7 +11,7 @@ class ReviewRemoteDatasource {
       final response = await http.get(uri, headers: {
         'Accept': 'application/json',
         'Accept-Language': language,
-      });
+      }).timeout(const Duration(seconds: 30));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         final data = jsonData['data'] as List;
@@ -34,7 +34,7 @@ class ReviewRemoteDatasource {
       final uri = Uri.parse(
         '${ApiConstants.baseUrl}${ApiConstants.restaurantReviews(restaurantId)}',
       ).replace(queryParameters: queryParams);
-      final response = await http.get(uri);
+      final response = await http.get(uri).timeout(const Duration(seconds: 30));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         return ReviewsResponseModel.fromJson(jsonData);
@@ -64,7 +64,7 @@ class ReviewRemoteDatasource {
       );
       final response = await http.post(
         uri, headers: ApiConstants.headers(), body: json.encode(requestData.toJson()),
-      );
+      ).timeout(const Duration(seconds: 30));
       if (response.statusCode == 201 || response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         return ReviewModel.fromJson(jsonData['data']);

@@ -34,7 +34,7 @@ class RestaurantRemoteDatasource {
       final uri = Uri.parse('${ApiConstants.baseUrl}${ApiConstants.restaurants}')
           .replace(queryParameters: queryParams);
 
-      final response = await http.get(uri, headers: ApiConstants.headers(language: language));
+      final response = await http.get(uri, headers: ApiConstants.headers(language: language)).timeout(const Duration(seconds: 30));
 
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
@@ -61,7 +61,7 @@ class RestaurantRemoteDatasource {
   Future<Restaurant> getRestaurantDetail({required int id, String language = 'uz'}) async {
     try {
       final uri = Uri.parse('${ApiConstants.baseUrl}${ApiConstants.restaurantDetail(id)}');
-      final response = await http.get(uri, headers: ApiConstants.headers(language: language));
+      final response = await http.get(uri, headers: ApiConstants.headers(language: language)).timeout(const Duration(seconds: 30));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         return RestaurantModel.fromJson(jsonData['data']);
@@ -88,7 +88,7 @@ class RestaurantRemoteDatasource {
       };
       final uri = Uri.parse('${ApiConstants.baseUrl}${ApiConstants.nearbyRestaurants}')
           .replace(queryParameters: queryParams);
-      final response = await http.get(uri, headers: ApiConstants.headers(language: language));
+      final response = await http.get(uri, headers: ApiConstants.headers(language: language)).timeout(const Duration(seconds: 30));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         final dynamic apiData = jsonData['data'];
@@ -117,7 +117,7 @@ class RestaurantRemoteDatasource {
       final queryParams = {'lat': latitude.toString(), 'lng': longitude.toString()};
       final uri = Uri.parse('${ApiConstants.baseUrl}${ApiConstants.nearestRestaurants}')
           .replace(queryParameters: queryParams);
-      final response = await http.get(uri, headers: ApiConstants.headers(language: language));
+      final response = await http.get(uri, headers: ApiConstants.headers(language: language)).timeout(const Duration(seconds: 30));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         final List<dynamic> data = jsonData['data'];
@@ -142,7 +142,7 @@ class RestaurantRemoteDatasource {
       };
       final uri = Uri.parse('${ApiConstants.baseUrl}${ApiConstants.restaurantsMap}')
           .replace(queryParameters: queryParams);
-      final response = await http.get(uri, headers: ApiConstants.headers(language: language));
+      final response = await http.get(uri, headers: ApiConstants.headers(language: language)).timeout(const Duration(seconds: 30));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         final List<dynamic> data = jsonData['data'];
@@ -163,7 +163,7 @@ class RestaurantRemoteDatasource {
       final uri = Uri.parse(
         '${ApiConstants.baseUrl}${ApiConstants.topRestaurantsByCategory(categoryId)}',
       ).replace(queryParameters: queryParams);
-      final response = await http.get(uri, headers: ApiConstants.headers(language: language));
+      final response = await http.get(uri, headers: ApiConstants.headers(language: language)).timeout(const Duration(seconds: 30));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         final List<dynamic> data = jsonData['data'];

@@ -182,7 +182,7 @@ class _RestaurantReviewsScreenState extends State<RestaurantReviewsScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   sliver: SliverList(
                     delegate: SliverChildBuilderDelegate(
-                      (_, __) => const ReviewCardShimmer(),
+                      (context, index) => const ReviewCardShimmer(),
                       childCount: 5,
                     ),
                   ),
@@ -402,7 +402,7 @@ class _RestaurantReviewsScreenState extends State<RestaurantReviewsScreen> {
                         child: Image.network(
                           avatarUrl,
                           fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) => Center(
+                          errorBuilder: (_, e, s) => Center(
                             child: Text(
                               initial,
                               style: const TextStyle(
