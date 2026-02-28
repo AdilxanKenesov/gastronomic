@@ -57,6 +57,9 @@ dependencies:
     # QR Scanner
   mobile_scanner: ^3.5.5
 
+    # Maps navigation
+  url_launcher: ^6.3.0
+
     # UI
   flutter_svg: ^2.0.9
   cached_network_image: ^3.3.0

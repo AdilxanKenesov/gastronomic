@@ -66,6 +66,10 @@ class AppLocalizations {
       // Actions
       'close': 'Jabıw',
       'skip': 'Ótkerip jiberiw',
+      'route': 'Marshrut',
+      'navigate_via': 'Marshrut ilova saylań',
+      'google_maps': 'Google Maps',
+      'yandex_maps': 'Yandex Maps',
       'next': 'Keyingi',
       'start': 'Baslaw',
       'retry': 'Qayta urınıw',
@@ -268,6 +272,10 @@ class AppLocalizations {
       // Actions
       'close': 'Yopish',
       'skip': 'O\'tkazib yuborish',
+      'route': 'Marshrut',
+      'navigate_via': 'Xarita ilovasini tanlang',
+      'google_maps': 'Google Maps',
+      'yandex_maps': 'Yandex Maps',
       'next': 'Keyingi',
       'start': 'Boshlash',
       'retry': 'Qayta urinish',
@@ -467,6 +475,10 @@ class AppLocalizations {
       // Actions
       'close': 'Закрыть',
       'skip': 'Пропустить',
+      'route': 'Маршрут',
+      'navigate_via': 'Выберите приложение карты',
+      'google_maps': 'Google Maps',
+      'yandex_maps': 'Яндекс Карты',
       'next': 'Далее',
       'start': 'Начать',
       'retry': 'Повторить',
@@ -672,6 +684,10 @@ class AppLocalizations {
       // Actions
       'close': 'Close',
       'skip': 'Skip',
+      'route': 'Route',
+      'navigate_via': 'Choose map app',
+      'google_maps': 'Google Maps',
+      'yandex_maps': 'Yandex Maps',
       'next': 'Next',
       'start': 'Start',
       'retry': 'Retry',
