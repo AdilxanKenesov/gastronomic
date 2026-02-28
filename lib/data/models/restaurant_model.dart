@@ -36,8 +36,8 @@ class RestaurantModel {
       name: json['branch_name']?.toString() ?? json['name']?.toString() ?? 'Nomsiz',
       description: json['description']?.toString(),
       address: json['address']?.toString(),
-      latitude: json['longitude'] != null ? double.tryParse(json['longitude'].toString()) : null,
-      longitude: json['latitude'] != null ? double.tryParse(json['latitude'].toString()) : null,
+      latitude: json['latitude'] != null ? double.tryParse(json['latitude'].toString()) : null,
+      longitude: json['longitude'] != null ? double.tryParse(json['longitude'].toString()) : null,
       phone: json['phone']?.toString(),
       workingHours: json['working_hours']?.toString(),
       averageRating: json['average_rating'] != null
