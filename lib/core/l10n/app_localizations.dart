@@ -104,7 +104,7 @@ class AppLocalizations {
       'popular_restaurants': 'Ommabop restoranlar',
       'popular_restaurants_subtitle': 'Mehmonlar tanlagan eng\' sara joylar',
       'fast_food': 'Street Food álemı',
-      'fast_food_subtitle': 'Tezkor hám Dámlı',
+      'fast_food_subtitle': 'Tez hám Dámlı',
 
       // Restaurant Details
       'address': 'Mánzil',
@@ -136,8 +136,8 @@ class AppLocalizations {
       'leave_comment': 'Pikíríńizdi qaldırıń...',
       'submit_review': 'Pikír qaldırıw',
       'review_submitted': 'Pikíríńiz qabıl etildi!',
-      'review_intro': 'Biz sizin qolaylıǵıńız hám tásirleríńiz haqqında qayǵıramız! Iltimas, vizitıńız haqqındaǵı pikiríńizdi bólisin. Bul birneshe minutqa ǵana waqtıńızdı aladi, biz sizge ne jaqsı kóringen hám ne jaqsılawǵa bolatugını biliw júda áhmiyetli.',
-      'review_thanks': 'Ózińizdegi tájiriybe bóleskeniniz ushın raxmet! Sizdiń sebepińiz menen biz hár kún jaxsılanıp baramız. Sizdi qayta kútemiz!',
+      'review_intro': 'Biz sizin qolaylıǵıńız haqqında qayǵıramız! Iltimas, vizitıńız haqqındaǵı pikiríńizdi bólisin. Bul birneshe minutqa ǵana waqtıńızdı aladi, biz sizge ne jaqsı kóringen hám ne jaqsılawǵa bolatugının biliw júda áhmiyetli.',
+      'review_thanks': 'Ózińizdegi tájiriybe bóleskeniniz ushın raxmet! Sizdiń sebebińiz menen biz hár kún jaxsılanıp baramız. Sizdi qayta kútemiz!',
 
       // Low rating sections
       'low_rating_a_title': 'Sizge ne jaqpadı?',
@@ -147,7 +147,7 @@ class AppLocalizations {
       'low_a_rude_staff': 'Sipatsiz xizmet',
       'low_a_order_errors': 'Buyırtpada qáteler',
       'low_a_cleanliness': 'Jetkilikli tazalıq joq',
-      'low_a_noisy': 'Shawqınlı ortaliq',
+      'low_a_noisy': 'Shawqımlı ortaliq',
       'low_a_bad_lighting': 'Jaman qaraldi',
       'low_a_uncomfortable_seating': 'Qolaylı emes orınlıqlar',
       'low_b_food_quality': 'Taam/ishimlik: dámi',
@@ -158,7 +158,7 @@ class AppLocalizations {
 
       // High rating sections
       'high_rating_a_title': 'Sizge ne jaqtı?',
-      'high_rating_b_title': 'Neni eslesiz?',
+      'high_rating_b_title': 'Ásirese ne este qaldı?',
       'high_rating_c_title': 'Neni jaqsılaw múmkin edi?',
       'high_a_food_taste': 'Taamdıń dámı',
       'high_a_food_presentation': 'Taamdıń shırayıl bezewi',
@@ -170,18 +170,18 @@ class AppLocalizations {
 
       // General questions
       'general_q1_title': 'Qanday kategoriyani ajratasiz?',
-      'general_q2_title': 'Qaytadan kelesizbemi?',
+      'general_q2_title': 'Qaytadan kelesizbe?',
       'general_q3_title': 'Qosimsha pikir qaldırıwdı qáleysizbe?',
-      'visit_breakfast': 'Ertełı tamaq',
-      'visit_lunch': 'Gúnortaǵı tamaq',
+      'visit_breakfast': 'Azangi tamaq',
+      'visit_lunch': 'Túslki tamaq',
       'visit_dinner': 'Keshki tamaq',
       'visit_coffee': 'Kofe',
       'visit_dessert': 'Desert',
-      'visit_other': 'Baskası',
-      'return_yes': 'Áwet',
+      'visit_other': 'Basqası',
+      'return_yes': 'Álbette',
       'return_maybe': 'Múmkin',
       'return_no': 'Joq',
-      'other': 'Baskası',
+      'other': 'Basqası',
       'write_here_optional': 'Mında jazıń (ixtiyariy)...',
 
       // Review examples - Food & Taste
@@ -195,29 +195,29 @@ class AppLocalizations {
       // Review examples - Service & Price
       'example_service_positive_1': 'Xızmet tez hám sıpatlı',
       'example_service_positive_2': 'Bahalar qolaylı',
-      'example_service_positive_3': 'Xızmetkerler dosane',
-      'example_service_negative_1': 'Xızmet baǵır',
+      'example_service_positive_3': 'Xızmetkerler kishipeyil',
+      'example_service_negative_1': 'Xızmet kórsetiw tómen',
       'example_service_negative_2': 'Bahalar qımmat',
-      'example_service_negative_3': 'Kóp kúttiw kerek boldı',
+      'example_service_negative_3': 'Kóp kútiw kerek boldı',
 
       // Review examples - Atmosphere
       'example_atmosphere_positive_1': 'Muhit shırayıl',
       'example_atmosphere_positive_2': 'Taza hám qolaylı',
       'example_atmosphere_positive_3': 'Orınlıqlar qolaylı',
-      'example_atmosphere_negative_1': 'Shawqınlı',
+      'example_atmosphere_negative_1': 'Shawqımlı',
       'example_atmosphere_negative_2': 'Tar joy',
       'example_atmosphere_negative_3': 'Tazalıq jaqpadı',
 
       // Intro
       'intro_title_1': 'Biz siz ushın Nókisdıń eń jaqsı jayların saylap qoydıq.',
-      'intro_desc_1': 'Qalańıń eń sapa, tekserilgen hám joqarı reyting restoranları — bir qosımshada jamlandi.',
-      'intro_title_2': 'Nókisdıń eń sara dámın tanıń',
-      'intro_desc_2': 'Qalada eń jaqsı hám sertifikatlangan restoranları ańsat tabıń.',
+      'intro_desc_1': 'Qalańıń eń sapali, tekserilgen hám joqarı reyting restoranları — bir qosımshada jamlendi.',
+      'intro_title_2': 'Nókisdıń eń jaqsi dámin kashf etiń',
+      'intro_desc_2': 'Qalada eń jaqsı hám sertifikatlangan restoranlardı ańsat tabıń.',
       'intro_title_3': 'Menyu hám bahalardı aldın-ala kóriń',
-      'intro_desc_3': 'Buyırtpa beriwden aldın taamlardıń suretleri hám quramı menen tanısıń.',
+      'intro_desc_3': 'Buyırtpa beriwden aldın taamlardıń suretleri hám menyusi menen tanısıń.',
       'intro_title_4': 'Haqıyqıy baha hám pikírler',
-      'intro_desc_4': 'Xızmet sapasın bahalanıń hám basqalardıń pikirlerin oqıń.',
-      'intro_get_started': 'Bastawlaw',
+      'intro_desc_4': 'Xızmet sapasın bahalań hám basqalardıń pikirlerin oqıń.',
+      'intro_get_started': 'Baslaw',
     },
     'uz': {
       // App

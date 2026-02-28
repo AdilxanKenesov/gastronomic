@@ -134,29 +134,6 @@ lib/
 | `QrScannerScreen` | Camera QR scanner → restaurant navigation |
 | `SettingsScreen` | Language picker + About |
 
----
-
-## Screenshots
-
-<table>
-  <tr>
-    <td><img src="assets/info/photo_1_2026-02-28_11-50-08.jpg" width="200"/></td>
-    <td><img src="assets/info/photo_2_2026-02-28_11-50-08.jpg" width="200"/></td>
-    <td><img src="assets/info/photo_3_2026-02-28_11-50-08.jpg" width="200"/></td>
-  </tr>
-  <tr>
-    <td><img src="assets/info/photo_4_2026-02-28_11-50-08.jpg" width="200"/></td>
-    <td><img src="assets/info/photo_5_2026-02-28_11-50-08.jpg" width="200"/></td>
-    <td><img src="assets/info/photo_6_2026-02-28_11-50-08.jpg" width="200"/></td>
-  </tr>
-  <tr>
-    <td><img src="assets/info/photo_7_2026-02-28_11-50-08.jpg" width="200"/></td>
-    <td><img src="assets/info/photo_8_2026-02-28_11-50-08.jpg" width="200"/></td>
-    <td><img src="assets/info/photo_9_2026-02-28_11-50-08.jpg" width="200"/></td>
-  </tr>
-</table>
-
----
 
 ## API
 

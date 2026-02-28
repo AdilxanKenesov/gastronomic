@@ -7,7 +7,6 @@ import '../../domain/entities/menu.dart';
 import '../../data/datasources/remote/menu_remote_datasource.dart';
 import '../bloc/settings_bloc.dart';
 import 'review_screen.dart';
-import 'restaurant_reviews_screen.dart';
 import '../widgets/shimmer_widgets.dart';
 
 class RestaurantDetailScreen extends StatefulWidget {
@@ -417,39 +416,29 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
   }
 
   Widget _buildInfoCard() {
-    return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => RestaurantReviewsScreen(restaurant: widget.restaurant),
-        ),
+    return Container(
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(20),
       ),
-      child: Container(
-        padding: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          color: AppColors.card,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Row(
-          children: [
-            const Icon(Icons.star, color: AppColors.starRating, size: 20),
-            const SizedBox(width: 8),
-            Text(
-              widget.restaurant.averageRating?.toStringAsFixed(1) ?? "0.0",
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                color: AppColors.textPrimary,
-              ),
+      child: Row(
+        children: [
+          const Icon(Icons.star, color: AppColors.starRating, size: 20),
+          const SizedBox(width: 8),
+          Text(
+            widget.restaurant.averageRating?.toStringAsFixed(1) ?? "0.0",
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: AppColors.textPrimary,
             ),
-            const SizedBox(width: 5),
-            Text(
-              "(${widget.restaurant.reviewsCount ?? 0})",
-              style: const TextStyle(color: AppColors.textSecondary, fontSize: 12),
-            ),
-            const Spacer(),
-            const Icon(Icons.arrow_forward_ios, size: 12, color: AppColors.iconSecondary),
-          ],
-        ),
+          ),
+          const SizedBox(width: 5),
+          Text(
+            "(${widget.restaurant.reviewsCount ?? 0})",
+            style: const TextStyle(color: AppColors.textSecondary, fontSize: 12),
+          ),
+        ],
       ),
     );
   }
