@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
             LoadRestaurants(language: state.apiLanguage),
           );
           context.read<CategoryBloc>().add(
-            LoadCategories(language: state.apiLanguage),
+            LoadCategories(language: state.categoryApiLanguage),
           );
         },
         builder: (context, state) {

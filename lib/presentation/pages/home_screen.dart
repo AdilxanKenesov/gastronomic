@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> with RestaurantNavigationMixin 
   void _loadCategories() {
     final settingsState = context.read<SettingsBloc>().state;
     context.read<CategoryBloc>().add(
-      LoadCategories(language: settingsState.apiLanguage),
+      LoadCategories(language: settingsState.categoryApiLanguage),
     );
   }
 
