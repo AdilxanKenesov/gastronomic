@@ -237,8 +237,7 @@ class MapRestaurantCard extends StatelessWidget {
                 const SizedBox(height: 12),
                 _buildMapOption(
                   context: context,
-                  icon: Icons.map,
-                  iconColor: const Color(0xFF4285F4),
+                  assetPath: 'assets/images/google.png',
                   label: l10n.translate('google_maps'),
                   onTap: () {
                     Navigator.pop(context);
@@ -248,8 +247,7 @@ class MapRestaurantCard extends StatelessWidget {
                 const SizedBox(height: 8),
                 _buildMapOption(
                   context: context,
-                  icon: Icons.navigation,
-                  iconColor: const Color(0xFFFC3F1D),
+                  assetPath: 'assets/images/yandex.png',
                   label: l10n.translate('yandex_maps'),
                   onTap: () {
                     Navigator.pop(context);
@@ -267,8 +265,7 @@ class MapRestaurantCard extends StatelessWidget {
 
   Widget _buildMapOption({
     required BuildContext context,
-    required IconData icon,
-    required Color iconColor,
+    required String assetPath,
     required String label,
     required VoidCallback onTap,
   }) {
@@ -284,14 +281,14 @@ class MapRestaurantCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: iconColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(10),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                assetPath,
+                width: 40,
+                height: 40,
+                fit: BoxFit.contain,
               ),
-              child: Icon(icon, color: iconColor, size: 22),
             ),
             const SizedBox(width: 14),
             Text(
