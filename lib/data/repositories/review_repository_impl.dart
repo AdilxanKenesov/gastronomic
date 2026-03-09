@@ -20,6 +20,7 @@ class ReviewRepositoryImpl implements ReviewRepository {
     String? comment, String? phone, List<int>? selectedOptionIds,
   }) => datasource.createReview(
     restaurantId: restaurantId, deviceId: deviceId, rating: rating,
-    comment: comment, phone: phone, selectedOptionIds: selectedOptionIds,
+    comments: comment != null ? [{'text': comment}] : null,
+    phone: phone, selectedOptionIds: selectedOptionIds,
   );
 }

@@ -28,6 +28,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
   final Map<int, Set<int>> _selectedOptions = {};
   final Map<int, TextEditingController> _textControllers = {};
   final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   void initState() {
@@ -38,6 +39,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
   @override
   void dispose() {
     _phoneController.dispose();
+    _emailController.dispose();
     for (final c in _textControllers.values) {
       c.dispose();
     }
@@ -160,35 +162,36 @@ class _ReviewScreenState extends State<ReviewScreen> {
         allOptionIds.addAll(ids);
       }
 
-      // Text inputlardan comment yaratish
-      final textParts = <String>[];
+      // Text inputlardan comments array yaratish [{question_id, text}]
+      final comments = <Map<String, dynamic>>[];
       final rq = _ratingQuestion;
       for (final q in _questions) {
         if (rq != null && q.id == rq.id) {
-          // Sub-savollarning text javoblarini qo'shish
           for (final sub in q.subQuestions) {
             if (!_isSubQuestionVisible(sub)) continue;
             final ctrl = _textControllers[sub.id];
             if (ctrl != null && ctrl.text.trim().isNotEmpty) {
-              textParts.add('${sub.title}\n→ ${ctrl.text.trim()}');
+              comments.add({'question_id': sub.id, 'text': ctrl.text.trim()});
             }
           }
           continue;
         }
         final ctrl = _textControllers[q.id];
         if (ctrl != null && ctrl.text.trim().isNotEmpty) {
-          textParts.add('${q.title}\n→ ${ctrl.text.trim()}');
+          comments.add({'question_id': q.id, 'text': ctrl.text.trim()});
         }
       }
 
       final phone = _phoneController.text.trim();
+      final email = _emailController.text.trim();
 
       await _reviewService.createReview(
         restaurantId: widget.restaurant.id,
         deviceId: deviceId,
         rating: _selectedStars,
-        comment: textParts.isNotEmpty ? textParts.join('\n\n') : null,
+        comments: comments.isNotEmpty ? comments : null,
         phone: phone.isNotEmpty ? phone : null,
+        email: email.isNotEmpty ? email : null,
         selectedOptionIds: allOptionIds.isNotEmpty ? allOptionIds : null,
       );
 
@@ -447,7 +450,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                               controller: _textControllers[q.id]!,
                               hint: l10n.translate('write_here_optional'),
                             )
-                          : _buildOptionsChips(q.id, q.options, q.allowMultiple),
+                          : _buildOptionsChips(q.id, q.options, q.id == 8 || q.allowMultiple),
                     ),
                     const SizedBox(height: 16),
                   ]),
@@ -462,6 +465,39 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   style: const TextStyle(color: AppColors.textPrimary, fontSize: 14),
                   decoration: InputDecoration(
                     hintText: '+998 XX XXX XX XX',
+                    hintStyle: const TextStyle(color: AppColors.textHint, fontSize: 13),
+                    counterText: '',
+                    contentPadding: const EdgeInsets.all(12),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: AppColors.border),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: AppColors.border),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: AppColors.primary),
+                    ),
+                    filled: true,
+                    fillColor: AppColors.background,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // Email (ixtiyoriy)
+              _buildSectionCard(
+                title: l10n.translate('email'),
+                child: TextField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  maxLength: 100,
+                  style: const TextStyle(color: AppColors.textPrimary, fontSize: 14),
+                  decoration: InputDecoration(
+                    hintText: 'example@gmail.com',
                     hintStyle: const TextStyle(color: AppColors.textHint, fontSize: 13),
                     counterText: '',
                     contentPadding: const EdgeInsets.all(12),

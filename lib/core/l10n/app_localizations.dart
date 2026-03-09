@@ -16,12 +16,12 @@ class AppLocalizations {
     'kaa': {
       // App
       'app_name': 'Gastronomic',
-      'welcome': 'Qos keliníz',
+      'welcome': 'Qosh keldińíz',
 
       // Search & Navigation
-      'find_restaurants': 'Restoranlardan izleń',
-      'search_restaurants': 'Restoran yamasa taam izleń...',
-      'search_hint': 'Restoran yamasa taam izleń...',
+      'find_restaurants': 'Restoranlardi izleń',
+      'search_restaurants': 'Restoran yamasa taǵamlardi izleń...',
+      'search_hint': 'Restoran yamasa taǵamlardi izleń...',
       'no_restaurants': 'Restoran tabılmadı',
       'all_restaurants': 'Barlıq restoranlar',
       'restaurants': 'Restoranlar',
@@ -31,7 +31,7 @@ class AppLocalizations {
       'nearest_restaurants': 'Eń jaqın restoranlar',
       'no_restaurants_on_map': 'Kartada restoran tabılmadı',
 
-      'banner_text': 'En\' jaqin bolg\'an Restoranlar',
+      'banner_text': 'Eń jaqin bolǵan Restoranlar',
       'view_map': 'Kartanı kóriw',
 
       // Status
@@ -42,7 +42,7 @@ class AppLocalizations {
       // Menu Categories
       'menu': 'Menyu',
       'all_items': 'Barlıq',
-      'hot_dishes': 'Issı taamlar',
+      'hot_dishes': 'Issı taǵamlar',
       'salads': 'Salatlar',
       'desserts': 'Desertler',
       'drinks': 'Ishimlikler',
@@ -57,10 +57,10 @@ class AppLocalizations {
       'language': 'Til',
       'select_language': 'Til saylań',
       'about_app': 'Qollanba haqqında',
-      'version_info': 'Versiya hám maǵlıwmat',
+      'version_info': 'Versiya hám maǵluwmat',
       'version': 'Versiya',
       'created': 'Jasalǵan',
-      'project_partners': 'Joba hámkorları',
+      'project_partners': 'Joba sheriklari',
       'about_description': 'Bul mobil qosımshası Ózbekstan Respublikası Oliy Majlisi janındaǵı Jámáatlik fondınıń sociallıq buyırtpası tiykarında, «QR Gastronomic Quality» joybarı sheńberinde DMO Karakalpakstan tárepinen islep shıǵıldı.\n\nQosımsha járdeminde restoran hám kafelerdegi xızmet kórsetiw sapasın ańsat bahalawıńız múmkin. Stol ústindegi QR-koddı skanerleń, 5 ballıq sistema boyınsha óz bahalanıńızdı qaldırıń hám sizge ne jaqqanın yamasa neni jaqsılaw kerek ekenligin kórsetiń.\n\nBarlıq pikir-múláhazeler tuwrıdan-tuwrı restoran iyelerine hám administratorlarǵa jiberiledi. Bul bolsa xızmet sapasın arttırıwǵa, taǵamlardı jáne de dámliirek, ortalıqtı bálent dárejede hám keliwińizdi jaǵımlı qılıwǵa xızmet etedi.\n\nTez, qolaylı hám nátiyjeli — tuwrı bahalanıńızdı qaldırıń hám restoranlardıń bunnan da jaqsılanıwına óz úlesińizdi qosıń!',
 
       // Actions
@@ -99,29 +99,29 @@ class AppLocalizations {
       'go_to_restaurant': 'Restoran betine',
 
       // Categories
-      'popular_cafes': 'Eng\' zo\'r kafeler',
-      'popular_cafes_subtitle': 'Mazmunli hám umıtılmas tag\'amlar maskenı',
+      'popular_cafes': 'Enǵ zor kafeler',
+      'popular_cafes_subtitle': 'Mazmunli hám umıtılmas taǵamlar maskenı',
       'popular_restaurants': 'Ommabop restoranlar',
-      'popular_restaurants_subtitle': 'Mehmonlar tanlagan eng\' sara joylar',
+      'popular_restaurants_subtitle': 'Mehmonlar tanlagan enǵ sara mánziller',
       'fast_food': 'Street Food álemı',
       'fast_food_subtitle': 'Tez hám Dámlı',
 
       // Restaurant Details
       'address': 'Mánzil',
       'address_not_specified': 'Mánzil kórsetilmegen',
-      'distance_unknown': 'Araqashıqlıq belgisiz',
-      'location_unknown': 'Jaylasıw belgisiz',
+      'location_unknown': 'Jaylasıwı belgisiz',
       'phone': 'Telefon',
-      'working_hours': 'Jumıs waqtı',
-      'rating': 'Reytin',
-      'reviews': 'Pikírler',
-      'view_menu': 'Menyudi kóriw',
+      'email': 'Email',
+      'working_hours': 'Jumis waqtı',
+      'rating': 'Reyting',
+      'reviews': 'Pikirler',
+      'view_menu': 'Menyuni kóriw',
       'view_on_map': 'Kartada kóriw',
-      'write_review': 'Pikír qaldırıw',
-      'no_reviews': 'Háshe pikir qaldirilmagan',
-      'anonymous': 'Mehman',
+      'write_review': 'Pikir qaldırıw',
+      'no_reviews': 'Házirshe pikirler joq',
+      'anonymous': 'Miyman',
       'load_more': 'Kóbirek júklew',
-      'reviews_title': 'Pikírler',
+      'reviews_title': 'Pikirler',
 
       // Reviews
       'restaurant': 'Restoran',
@@ -185,10 +185,10 @@ class AppLocalizations {
       'write_here_optional': 'Mında jazıń (ixtiyariy)...',
 
       // Review examples - Food & Taste
-      'example_food_positive_1': 'Taam júda dámlí edi',
+      'example_food_positive_1': 'Taáam júda dámlí edi',
       'example_food_positive_2': 'Porsiyalar úlken',
       'example_food_positive_3': 'Taza ónimlerden tayarlanǵan',
-      'example_food_negative_1': 'Taam suwıq edi',
+      'example_food_negative_1': 'Taáam suwıq edi',
       'example_food_negative_2': 'Porsiya kishi',
       'example_food_negative_3': 'Dám jaqpadı',
 
@@ -210,11 +210,11 @@ class AppLocalizations {
 
       // Intro
       'intro_title_1': 'Biz siz ushın Nókisdıń eń jaqsı jayların saylap qoydıq.',
-      'intro_desc_1': 'Qalańıń eń sapali, tekserilgen hám joqarı reyting restoranları — bir qosımshada jamlendi.',
+      'intro_desc_1': 'Qalańıń eń sapali, tekserilgen hám joqarı reyting restoranları — bir qosımshada jámlendi.',
       'intro_title_2': 'Nókisdıń eń jaqsi dámin kashf etiń',
       'intro_desc_2': 'Qalada eń jaqsı hám sertifikatlangan restoranlardı ańsat tabıń.',
       'intro_title_3': 'Menyu hám bahalardı aldın-ala kóriń',
-      'intro_desc_3': 'Buyırtpa beriwden aldın taamlardıń suretleri hám menyusi menen tanısıń.',
+      'intro_desc_3': 'Buyırtpa beriwden aldın taǵamlardıń suretleri hám menyusi menen tanısıń.',
       'intro_title_4': 'Haqıyqıy baha hám pikírler',
       'intro_desc_4': 'Xızmet sapasın bahalań hám basqalardıń pikirlerin oqıń.',
       'intro_get_started': 'Baslaw',
@@ -318,6 +318,7 @@ class AppLocalizations {
       'distance_unknown': 'Masofa noma\'lum',
       'location_unknown': 'Joylashuv noma\'lum',
       'phone': 'Telefon',
+      'email': 'Email',
       'working_hours': 'Ish vaqti',
       'rating': 'Reyting',
       'reviews': 'Sharhlar',
@@ -524,6 +525,7 @@ class AppLocalizations {
       'distance_unknown': 'Расстояние неизвестно',
       'location_unknown': 'Местоположение неизвестно',
       'phone': 'Телефон',
+      'email': 'Email',
       'working_hours': 'Время работы',
       'rating': 'Рейтинг',
       'reviews': 'Отзывы',
@@ -730,6 +732,7 @@ class AppLocalizations {
       'distance_unknown': 'Distance unknown',
       'location_unknown': 'Location unknown',
       'phone': 'Phone',
+      'email': 'Email',
       'working_hours': 'Working hours',
       'rating': 'Rating',
       'reviews': 'Reviews',

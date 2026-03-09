@@ -15,10 +15,10 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = const [
-    HomeScreen(),
-    QRScannerScreen(),
-    SettingsScreen(),
+  late final List<Widget> _screens = [
+    const HomeScreen(),
+    QRScannerScreen(onNavigateAway: () => setState(() => _currentIndex = 0)),
+    const SettingsScreen(),
   ];
 
   @override

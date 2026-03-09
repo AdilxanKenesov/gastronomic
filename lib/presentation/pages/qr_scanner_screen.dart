@@ -6,7 +6,9 @@ import '../../data/datasources/remote/restaurant_remote_datasource.dart';
 import 'restaurant_detail_screen.dart';
 
 class QRScannerScreen extends StatefulWidget {
-  const QRScannerScreen({super.key});
+  final VoidCallback? onNavigateAway;
+
+  const QRScannerScreen({super.key, this.onNavigateAway});
 
   @override
   State<QRScannerScreen> createState() => _QRScannerScreenState();
@@ -52,13 +54,15 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
       final restaurant = await _restaurantService.getRestaurantDetail(id: restaurantId);
 
       if (mounted) {
-        // Avtomatik ravishda restoran menu sahifasiga o'tish
-        Navigator.pushReplacement(
+        await Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => RestaurantDetailScreen(restaurant: restaurant),
           ),
         );
+        // Restoran ekranidan qaytganda: home tabga o'tish va scannerni reset qilish
+        widget.onNavigateAway?.call();
+        _resetScanner();
       }
     } catch (e) {
       if (mounted) {

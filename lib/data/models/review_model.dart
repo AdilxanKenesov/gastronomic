@@ -138,15 +138,17 @@ class PaginationMetaModel {
 class CreateReviewRequest {
   final String deviceId;
   final int rating;
-  final String? comment;
+  final List<Map<String, dynamic>>? comments;
   final String? phone;
+  final String? email;
   final List<int>? selectedOptionIds;
 
   CreateReviewRequest({
     required this.deviceId,
     required this.rating,
-    this.comment,
+    this.comments,
     this.phone,
+    this.email,
     this.selectedOptionIds,
   });
 
@@ -154,8 +156,10 @@ class CreateReviewRequest {
     return {
       'device_id': deviceId,
       'rating': rating,
-      if (comment != null && comment!.isNotEmpty) 'comment': comment,
+      if (comments != null && comments!.isNotEmpty) 'comments': comments,
       if (phone != null && phone!.isNotEmpty) 'phone': phone,
+      // TODO: email backend tayyor bo'lgach yoqish
+      // if (email != null && email!.isNotEmpty) 'email': email,
       if (selectedOptionIds != null && selectedOptionIds!.isNotEmpty)
         'selected_option_ids': selectedOptionIds,
     };

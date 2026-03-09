@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer' as developer;
 import 'package:http/http.dart' as http;
 import '../../../core/constants/api_constants.dart';
 import '../../../data/models/review_model.dart';
@@ -50,8 +51,9 @@ class ReviewRemoteDatasource {
     required int restaurantId,
     required String deviceId,
     required int rating,
-    String? comment,
+    List<Map<String, dynamic>>? comments,
     String? phone,
+    String? email,
     List<int>? selectedOptionIds,
   }) async {
     try {
@@ -59,12 +61,17 @@ class ReviewRemoteDatasource {
         '${ApiConstants.baseUrl}${ApiConstants.restaurantReviews(restaurantId)}',
       );
       final requestData = CreateReviewRequest(
-        deviceId: deviceId, rating: rating, comment: comment,
-        phone: phone, selectedOptionIds: selectedOptionIds,
+        deviceId: deviceId, rating: rating, comments: comments,
+        phone: phone, email: email, selectedOptionIds: selectedOptionIds,
       );
+      final bodyJson = requestData.toJson();
+      developer.log('CREATE REVIEW → URL: $uri', name: 'ReviewDS');
+      developer.log('CREATE REVIEW → BODY: ${json.encode(bodyJson)}', name: 'ReviewDS');
       final response = await http.post(
-        uri, headers: ApiConstants.headers(), body: json.encode(requestData.toJson()),
+        uri, headers: ApiConstants.headers(), body: json.encode(bodyJson),
       ).timeout(const Duration(seconds: 30));
+      developer.log('CREATE REVIEW ← STATUS: ${response.statusCode}', name: 'ReviewDS');
+      developer.log('CREATE REVIEW ← BODY: ${response.body}', name: 'ReviewDS');
       if (response.statusCode == 201 || response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         return ReviewModel.fromJson(jsonData['data']);
@@ -74,7 +81,7 @@ class ReviewRemoteDatasource {
       } else if (response.statusCode == 429) {
         throw Exception('Rate limit exceeded. You can only post 3 reviews per day per restaurant.');
       } else {
-        throw Exception('Failed to create review');
+        throw Exception('[${response.statusCode}] ${response.body}');
       }
     } catch (e) {
       throw Exception('Error creating review: $e');
