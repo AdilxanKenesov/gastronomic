@@ -30,9 +30,9 @@ class SettingsState extends Equatable {
 
   Locale get locale => Locale(languageCode);
 
-  // API uchun til kodi (kaa -> uz, restoran va boshqa endpointlar uchun)
+  // API uchun til kodi (kaa -> kk, restoran va boshqa endpointlar uchun)
   String get apiLanguage {
-    if (languageCode == 'kaa') return 'uz';
+    if (languageCode == 'kaa') return 'kk';
     return languageCode;
   }
 
