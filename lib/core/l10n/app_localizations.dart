@@ -214,7 +214,7 @@ class AppLocalizations {
       'intro_title_2': 'Nókisdıń eń jaqsi dámin kashf etiń',
       'intro_desc_2': 'Qalada eń jaqsı hám sertifikatlangan restoranlardı ańsat tabıń.',
       'intro_title_3': 'Menyu hám bahalardı aldın-ala kóriń',
-      'intro_desc_3': 'Buyırtpa beriwden aldın taǵamlardıń suretleri hám menyusi menen tanısıń.',
+      'intro_desc_3': 'Buyırtpa beriwden aldın taǵamlardıń suwretleri hám menyusi menen tanısıń.',
       'intro_title_4': 'Haqıyqıy baha hám pikírler',
       'intro_desc_4': 'Xızmet sapasın bahalań hám basqalardıń pikirlerin oqıń.',
       'intro_get_started': 'Baslaw',
