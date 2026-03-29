@@ -4,7 +4,9 @@ class MenuItem {
   final String? description;
   final double? price;
   final String? imageUrl;
-  final int? weight;
+  final String? weight; // API dan string formatda kelyapti "0.50"
+  final String? weightUnit; // "л" yoki "г"
+  final bool? isWater;
   final int restaurantId;
   final MenuSection? menuSection;
   final bool isAvailable;
@@ -18,6 +20,8 @@ class MenuItem {
     this.price,
     this.imageUrl,
     this.weight,
+    this.weightUnit,
+    this.isWater,
     required this.restaurantId,
     this.menuSection,
     required this.isAvailable,

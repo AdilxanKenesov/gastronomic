@@ -6,9 +6,14 @@ import '../../data/datasources/remote/restaurant_remote_datasource.dart';
 import 'restaurant_detail_screen.dart';
 
 class QRScannerScreen extends StatefulWidget {
+  final bool isActive; // Yangi qo'shildi
   final VoidCallback? onNavigateAway;
 
-  const QRScannerScreen({super.key, this.onNavigateAway});
+  const QRScannerScreen({
+    super.key, 
+    required this.isActive, // Majburiy qilindi
+    this.onNavigateAway,
+  });
 
   @override
   State<QRScannerScreen> createState() => _QRScannerScreenState();
@@ -60,7 +65,6 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
             builder: (context) => RestaurantDetailScreen(restaurant: restaurant),
           ),
         );
-        // Restoran ekranidan qaytganda: home tabga o'tish va scannerni reset qilish
         widget.onNavigateAway?.call();
         _resetScanner();
       }
@@ -75,18 +79,15 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
   }
 
   int? _parseRestaurantId(String code) {
-    // Faqat raqam
     final directId = int.tryParse(code.trim());
     if (directId != null) return directId;
 
-    // URL dan ID ajratish
     final urlPattern = RegExp(r'/restaurants?/(\d+)');
     final urlMatch = urlPattern.firstMatch(code);
     if (urlMatch != null) {
       return int.tryParse(urlMatch.group(1)!);
     }
 
-    // Oxirgi raqamni topish
     final numberPattern = RegExp(r'(\d+)');
     final matches = numberPattern.allMatches(code);
     if (matches.isNotEmpty) {
@@ -115,18 +116,21 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          // 1. Kamera skaneri
-          MobileScanner(
-            onDetect: _onDetect,
-          ),
+          // Faqat ekran faol bo'lgandagina kamerani yoqamiz
+          if (widget.isActive)
+            MobileScanner(
+              onDetect: _onDetect,
+            )
+          else
+            const Center(
+              child: CircularProgressIndicator(color: Colors.white),
+            ),
 
-          // 2. Overlay
           CustomPaint(
             painter: ScannerOverlay(),
             child: Container(),
           ),
 
-          // 3. Loading indicator
           if (_isLoading)
             Positioned(
               top: MediaQuery.of(context).size.height * 0.58,
@@ -148,7 +152,6 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
               ),
             ),
 
-          // 4. Error message
           if (_errorMessage != null && !_isLoading)
             Positioned(
               top: MediaQuery.of(context).size.height * 0.58,
@@ -204,7 +207,6 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
   }
 }
 
-// Skanner overlay
 class ScannerOverlay extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
@@ -228,7 +230,6 @@ class ScannerOverlay extends CustomPainter {
 
     canvas.drawPath(path, bgPaint);
 
-    // Kvadrat chetlaridagi oq chiziq
     final borderPaint = Paint()
       ..color = Colors.white.withValues(alpha: 0.5)
       ..strokeWidth = 2

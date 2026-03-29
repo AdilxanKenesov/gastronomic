@@ -28,9 +28,9 @@ class MenuItemModel {
       description: json['description']?.toString(),
       price: price,
       imageUrl: _makeAbsoluteUrl(imageUrl),
-      weight: json['weight'] is int
-          ? json['weight']
-          : int.tryParse(json['weight']?.toString() ?? ''),
+      weight: json['weight']?.toString(),
+      weightUnit: json['weight_unit']?.toString(),
+      isWater: json['is_water'] == true || json['is_water'] == 1,
       restaurantId: json['restaurant_id'] is int
           ? json['restaurant_id']
           : int.tryParse(json['restaurant_id']?.toString() ?? '0') ?? 0,

@@ -15,12 +15,6 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
-  late final List<Widget> _screens = [
-    const HomeScreen(),
-    QRScannerScreen(onNavigateAway: () => setState(() => _currentIndex = 0)),
-    const SettingsScreen(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -29,7 +23,14 @@ class _MainScreenState extends State<MainScreen> {
       backgroundColor: AppColors.background,
       body: IndexedStack(
         index: _currentIndex,
-        children: _screens,
+        children: [
+          const HomeScreen(),
+          QRScannerScreen(
+            isActive: _currentIndex == 1, // Skaner faqat 1-indeksda yoniq bo'ladi
+            onNavigateAway: () => setState(() => _currentIndex = 0),
+          ),
+          const SettingsScreen(),
+        ],
       ),
       bottomNavigationBar: SafeArea(
         child: Container(
