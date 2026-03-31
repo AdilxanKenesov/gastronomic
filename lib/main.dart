@@ -24,14 +24,14 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
+  // Android 15+ va Edge-to-Edge talablari uchun UI sozlamalari
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      systemNavigationBarColor: AppColors.background,
-      systemNavigationBarIconBrightness: Brightness.dark,
-      statusBarColor: Colors.transparent,
+      statusBarColor: Colors.transparent, // Shaffof status bar
       statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.transparent, // Shaffof navigation bar
+      systemNavigationBarIconBrightness: Brightness.dark,
       systemNavigationBarContrastEnforced: false,
-
     ),
   );
 

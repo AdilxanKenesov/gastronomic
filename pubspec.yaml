@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.3+5
+version: 1.0.4+6
 
 environment:
   sdk: ^3.10.3
@@ -72,7 +72,7 @@ dev_dependencies:
     sdk: flutter
 
   # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
+  # encourage good practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
@@ -126,4 +126,5 @@ flutter_launcher_icons:
   image_path: "assets/images/applicationlogo.png"
   # Agar Android uchun orqa fon rangi kerak bo'lsa (optional):
   # adaptive_icon_background: "#FFFFFF"
+  # adaptive_icon_foreground: "assets/images/applicationlogo.png"
   # adaptive_icon_foreground: "assets/images/applicationlogo.png"
