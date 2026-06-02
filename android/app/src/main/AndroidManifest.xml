@@ -10,7 +10,7 @@
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
     <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
     <application
-        android:label="QR DGastronomy"
+        android:label="QR Gastronomy"
         android:name="MainApplication"
         android:icon="@mipmap/launcher_icon">
         <activity

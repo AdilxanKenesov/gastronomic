@@ -46,6 +46,12 @@
 		<string>comgooglemaps</string>
 		<string>yandexmaps</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>QR kodlarni skanerlash uchun kameraga ruxsat kerak.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Yaqin atrofdagi restoranlarni ko'rsatish uchun joylashuvingiz kerak.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>QR kodni galereyadan tanlash uchun rasmlarga ruxsat kerak.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/l10n/app_localizations.dart';
 import 'core/services/connectivity_service.dart';
-import 'core/theme/app_colors.dart';
 import 'core/theme/app_theme.dart';
 import 'presentation/widgets/connectivity_wrapper.dart';
 import 'presentation/bloc/restaurant_bloc.dart';

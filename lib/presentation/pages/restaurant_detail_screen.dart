@@ -587,11 +587,6 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
               color: AppColors.textPrimary,
             ),
           ),
-          const SizedBox(width: 5),
-          Text(
-            "(${widget.restaurant.reviewsCount ?? 0})",
-            style: const TextStyle(color: AppColors.textSecondary, fontSize: 12),
-          ),
         ],
       ),
     );

@@ -19,7 +19,7 @@ class ApiConstants {
   static String menuItemDetail(int id) => '/api/menu-items/$id';
 
   // Search Endpoints
-  static const String search = '/api/search';
+  static const String search = '/api/restaurants/search';
 
   // Category Endpoints
   static const String categories = '/api/categories';

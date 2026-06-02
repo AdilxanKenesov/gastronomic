@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_text.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../bloc/settings_bloc.dart';
 import 'main_screen.dart';
-import 'dart:math';
 
 class IntroScreen extends StatefulWidget {
   final SharedPreferences prefs;
@@ -20,9 +20,11 @@ class _IntroScreenState extends State<IntroScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  final Color bgColor = const Color(0xFFF2F6FA);
-  final Color primaryBlue = const Color(0xFF0049DB);
-  final Color descriptionColor = const Color(0xFF687792);
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   List<IntroPageData> _buildPages(AppLocalizations l10n) => [
     IntroPageData(
@@ -51,10 +53,308 @@ class _IntroScreenState extends State<IntroScreen> {
     await widget.prefs.setBool('has_seen_intro', true);
     if (!mounted) return;
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => const MainScreen()),
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 600),
+        reverseTransitionDuration: const Duration(milliseconds: 350),
+        pageBuilder: (_, _, _) => const MainScreen(),
+        transitionsBuilder: (context, animation, _, child) {
+          final curved =
+              CurvedAnimation(parent: animation, curve: Curves.easeOutCubic);
+          // Yangi ekran o'ngdan chapga yengil suzib kiradi (fade bilan).
+          return FadeTransition(
+            opacity: curved,
+            child: SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(0.35, 0), // o'ngda boshlanadi
+                end: Offset.zero,
+              ).animate(curved),
+              child: child,
+            ),
+          );
+        },
+      ),
     );
   }
 
+  void _goNext(List<IntroPageData> pages) {
+    if (_currentPage < pages.length - 1) {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 350),
+        curve: Curves.easeOutCubic,
+      );
+    } else {
+      _completeIntro();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SettingsBloc, SettingsState>(
+      builder: (context, settingsState) {
+        final l10n = AppLocalizations.of(context);
+        final pages = _buildPages(l10n);
+        final size = MediaQuery.of(context).size;
+        final topPad = MediaQuery.of(context).padding.top;
+        final sheetHeight = size.height * 0.46;
+        final isLast = _currentPage == pages.length - 1;
+
+        return Scaffold(
+          backgroundColor: AppColors.cream,
+          body: Stack(
+            children: [
+              // ── Soft olive glow behind the hero image ──────────
+              Positioned(
+                top: topPad + 40,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: Container(
+                    width: size.width * 0.82,
+                    height: size.width * 0.82,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: RadialGradient(
+                        colors: [
+                          AppColors.primary.withValues(alpha: 0.12),
+                          AppColors.cream.withValues(alpha: 0.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+              // ── Hero images (swipeable) ────────────────────────
+              PageView.builder(
+                controller: _pageController,
+                onPageChanged: (page) => setState(() => _currentPage = page),
+                itemCount: pages.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      SizedBox(height: topPad + 88),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 34),
+                          child: Image.asset(pages[index].image, fit: BoxFit.contain),
+                        ),
+                      ),
+                      SizedBox(height: sheetHeight - 28),
+                    ],
+                  );
+                },
+              ),
+
+              // ── Language pill (top-left) ───────────────────────
+              Positioned(
+                top: topPad + 8,
+                left: 20,
+                child: _circleButton(
+                  icon: Icons.language_rounded,
+                  onTap: () => _showLanguageBottomSheet(context),
+                ),
+              ),
+
+              // ── Skip (top-right, hidden on last page) ──────────
+              if (!isLast)
+                Positioned(
+                  top: topPad + 12,
+                  right: 20,
+                  child: GestureDetector(
+                    onTap: _completeIntro,
+                    behavior: HitTestBehavior.opaque,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                      child: Text(
+                        l10n.translate('skip'),
+                        style: AppText.sans(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+              // ── Bottom content sheet ───────────────────────────
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: sheetHeight,
+                  width: double.infinity,
+                  padding: const EdgeInsets.fromLTRB(28, 30, 28, 28),
+                  decoration: BoxDecoration(
+                    color: AppColors.surface,
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(34)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.ink.withValues(alpha: 0.10),
+                        blurRadius: 28,
+                        offset: const Offset(0, -8),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildDots(pages.length),
+                      const SizedBox(height: 22),
+                      // Sarlavha + tavsif — rasm bilan birga o'ngdan chapga
+                      // silliq suriladi (PageController surilishi bilan sinxron).
+                      Expanded(
+                        child: ClipRect(
+                          child: AnimatedBuilder(
+                            animation: _pageController,
+                            builder: (context, _) {
+                              double page = _currentPage.toDouble();
+                              if (_pageController.hasClients &&
+                                  _pageController.position.haveDimensions) {
+                                page = _pageController.page ?? page;
+                              }
+                              final width = MediaQuery.of(context).size.width;
+                              return Stack(
+                                children: [
+                                  for (int i = 0; i < pages.length; i++)
+                                    _buildPageText(pages[i], i, page, width),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      _buildButtons(l10n, pages, isLast),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  /// Bitta intro sahifaning matni (sarlavha + tavsif).
+  /// [page] — PageView'ning joriy (kasrli) holati. Matn rasm bilan birga
+  /// o'ngdan chapga suriladi va surilish davomida asta-sekin so'nadi (fade).
+  Widget _buildPageText(IntroPageData data, int index, double page, double width) {
+    final delta = index - page; // 0 = joriy, >0 = hali o'ngda, <0 = chapga ketgan
+    final opacity = (1 - delta.abs()).clamp(0.0, 1.0);
+    if (opacity == 0) return const SizedBox.shrink();
+    return Opacity(
+      opacity: opacity,
+      child: Transform.translate(
+        offset: Offset(delta * width * 0.5, 0),
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                data.title,
+                style: AppText.serif(
+                  fontSize: 29,
+                  color: AppColors.textPrimary,
+                  height: 1.12,
+                ),
+              ),
+              const SizedBox(height: 14),
+              Text(
+                data.description,
+                style: AppText.sans(
+                  fontSize: 15,
+                  color: AppColors.textSecondary,
+                  fontWeight: FontWeight.w500,
+                  height: 1.5,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDots(int count) {
+    return Row(
+      children: List.generate(count, (i) {
+        final active = i == _currentPage;
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 280),
+          curve: Curves.easeOut,
+          margin: const EdgeInsets.only(right: 6),
+          width: active ? 24 : 7,
+          height: 7,
+          decoration: BoxDecoration(
+            color: active ? AppColors.primary : AppColors.primary.withValues(alpha: 0.22),
+            borderRadius: BorderRadius.circular(4),
+          ),
+        );
+      }),
+    );
+  }
+
+  Widget _circleButton({required IconData icon, required VoidCallback onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 44,
+        height: 44,
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.ink.withValues(alpha: 0.10),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Icon(icon, color: AppColors.primary, size: 22),
+      ),
+    );
+  }
+
+  Widget _buildButtons(AppLocalizations l10n, List<IntroPageData> pages, bool isLast) {
+    final nextLabel = isLast ? l10n.translate('intro_get_started') : l10n.translate('next');
+    return SizedBox(
+      width: double.infinity,
+      height: 56,
+      child: ElevatedButton(
+        onPressed: () => _goNext(pages),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primary,
+          foregroundColor: AppColors.textOnPrimary,
+          elevation: 0,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              nextLabel,
+              style: AppText.sans(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: AppColors.textOnPrimary,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Icon(
+              isLast ? Icons.check_rounded : Icons.arrow_forward_rounded,
+              size: 20,
+              color: AppColors.textOnPrimary,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ─── Language bottom sheet ────────────────────────────────────
   void _showLanguageBottomSheet(BuildContext context) {
     final l10n = AppLocalizations.of(context);
 
@@ -63,66 +363,41 @@ class _IntroScreenState extends State<IntroScreen> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (modalContext) {
-        final screenHeight = MediaQuery.of(modalContext).size.height;
         return BlocBuilder<SettingsBloc, SettingsState>(
           builder: (blocContext, state) {
             return Container(
-              height: screenHeight * 0.55,
               decoration: const BoxDecoration(
-                color: AppColors.background,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(32),
-                  topRight: Radius.circular(32),
-                ),
+                color: AppColors.cream,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
               ),
-              child: Column(
-                children: [
-                  const SizedBox(height: 12),
-                  Container(
-                    width: 40,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: AppColors.border,
-                      borderRadius: BorderRadius.circular(2),
+              child: SafeArea(
+                top: false,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(height: 12),
+                    Container(
+                      width: 42,
+                      height: 5,
+                      decoration: BoxDecoration(
+                        color: AppColors.border,
+                        borderRadius: BorderRadius.circular(3),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () => Navigator.pop(modalContext),
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: const BoxDecoration(
-                              color: AppColors.card,
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Icon(Icons.arrow_back, size: 20, color: AppColors.textPrimary),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            l10n.translate('select_language'),
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.textPrimary,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 40),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 18, 20, 10),
+                      child: Text(
+                        l10n.translate('select_language'),
+                        style: AppText.serif(fontSize: 24, color: AppColors.textPrimary),
+                      ),
                     ),
-                  ),
-                  _buildLangOption(context, label: 'Qaraqalpaqsha', code: 'kaa', assetPath: 'assets/images/qr.png', isSelected: state.languageCode == 'kaa'),
-                  _buildLangOption(context, label: 'O\'zbekcha',    code: 'uz',  assetPath: 'assets/images/uz.png', isSelected: state.languageCode == 'uz'),
-                  _buildLangOption(context, label: 'Русский',       code: 'ru',  assetPath: 'assets/images/ru.png', isSelected: state.languageCode == 'ru'),
-                  _buildLangOption(context, label: 'English',       code: 'en',  assetPath: 'assets/images/uk.png', isSelected: state.languageCode == 'en'),
-                  const Spacer(),
-                  const SizedBox(height: 32),
-                ],
+                    _buildLangOption(context, label: 'Qaraqalpaqsha', code: 'kaa', assetPath: 'assets/images/qr.png', isSelected: state.languageCode == 'kaa'),
+                    _buildLangOption(context, label: 'O\'zbekcha', code: 'uz', assetPath: 'assets/images/uz.png', isSelected: state.languageCode == 'uz'),
+                    _buildLangOption(context, label: 'Русский', code: 'ru', assetPath: 'assets/images/ru.png', isSelected: state.languageCode == 'ru'),
+                    _buildLangOption(context, label: 'English', code: 'en', assetPath: 'assets/images/uk.png', isSelected: state.languageCode == 'en'),
+                    const SizedBox(height: 16),
+                  ],
+                ),
               ),
             );
           },
@@ -147,17 +422,18 @@ class _IntroScreenState extends State<IntroScreen> {
         });
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.card : AppColors.card.withValues(alpha: 0.5),
+          color: AppColors.surface,
           borderRadius: BorderRadius.circular(16),
-          border: isSelected
-              ? Border.all(color: AppColors.primary.withValues(alpha: 0.3), width: 1.5)
-              : null,
+          border: Border.all(
+            color: isSelected ? AppColors.primary : AppColors.border,
+            width: isSelected ? 1.6 : 1,
+          ),
           boxShadow: isSelected
               ? [BoxShadow(color: AppColors.shadow, blurRadius: 10)]
-              : [],
+              : null,
         ),
         child: Row(
           children: [
@@ -169,224 +445,26 @@ class _IntroScreenState extends State<IntroScreen> {
                 height: 20,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stack) =>
-                    const Icon(Icons.flag, size: 25, color: AppColors.iconSecondary),
+                    const Icon(Icons.flag, size: 24, color: AppColors.iconSecondary),
               ),
             ),
-            const SizedBox(width: 15),
+            const SizedBox(width: 14),
             Text(
               label,
-              style: TextStyle(
+              style: AppText.sans(
                 fontSize: 16,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                 color: isSelected ? AppColors.primary : AppColors.textPrimary,
               ),
             ),
             const Spacer(),
             if (isSelected)
-              const Icon(Icons.check_circle, color: AppColors.primary, size: 24),
+              const Icon(Icons.check_circle_rounded, color: AppColors.primary, size: 24),
           ],
         ),
       ),
     );
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SettingsBloc, SettingsState>(
-      builder: (context, settingsState) {
-        final l10n = AppLocalizations.of(context);
-        final pages = _buildPages(l10n);
-
-        return Scaffold(
-          backgroundColor: bgColor,
-          body: Stack(
-            children: [
-              // 1. Rasmlar (Orqa fonda)
-              PageView.builder(
-                controller: _pageController,
-                onPageChanged: (page) => setState(() => _currentPage = page),
-                itemCount: pages.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      const SizedBox(height: 60),
-                      Expanded(
-                        flex: 5,
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Image.asset(pages[index].image, fit: BoxFit.contain),
-                        ),
-                      ),
-                      const Spacer(flex: 4),
-                    ],
-                  );
-                },
-              ),
-
-              // Language button (har doim ko'rinadi — top-left)
-              Positioned(
-                top: 50,
-                left: 20,
-                child: GestureDetector(
-                  onTap: () => _showLanguageBottomSheet(context),
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.08),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Icon(Icons.language_rounded, color: primaryBlue, size: 22),
-                  ),
-                ),
-              ),
-
-              // 2. Progress Circle (Faqat 1-sahifadan keyin)
-              if (_currentPage > 0)
-                Positioned(
-                  top: 50,
-                  right: 25,
-                  child: CustomPaint(
-                    painter: CircularProgressPainter(
-                      currentStep: _currentPage,
-                      totalSteps: pages.length - 1,
-                      color: primaryBlue,
-                    ),
-                    child: Container(
-                      width: 45,
-                      height: 45,
-                      alignment: Alignment.center,
-                      child: Text(
-                        '$_currentPage/${pages.length - 1}',
-                        style: TextStyle(color: descriptionColor, fontSize: 12, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ),
-
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.45,
-                  width: double.infinity,
-                  padding: const EdgeInsets.fromLTRB(25, 35, 25, 30),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(35)),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        pages[_currentPage].title,
-                        style: TextStyle(color: primaryBlue, fontSize: 24, fontWeight: FontWeight.bold, height: 1.1),
-                      ),
-                      const SizedBox(height: 15),
-                      Text(
-                        pages[_currentPage].description,
-                        style: TextStyle(color: descriptionColor, fontSize: 15, height: 1.4),
-                      ),
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 30.0),
-                        child: _buildButtons(l10n, pages),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildButtons(AppLocalizations l10n, List<IntroPageData> pages) {
-    if (_currentPage == 0) {
-      return Row(
-        children: [
-          Expanded(
-            child: OutlinedButton(
-              onPressed: _completeIntro,
-              style: OutlinedButton.styleFrom(
-                side: BorderSide(color: primaryBlue, width: 1.5),
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-              ),
-              child: Text(l10n.translate('skip'), style: TextStyle(color: primaryBlue, fontWeight: FontWeight.w600)),
-            ),
-          ),
-          const SizedBox(width: 15),
-          Expanded(
-            child: ElevatedButton(
-              onPressed: () => _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.ease),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: primaryBlue,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-                elevation: 0,
-              ),
-              child: Text(l10n.translate('next'), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
-            ),
-          ),
-        ],
-      );
-    } else {
-      return SizedBox(
-        width: double.infinity,
-        child: ElevatedButton(
-          onPressed: () {
-            if (_currentPage < pages.length - 1) {
-              _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
-            } else {
-              _completeIntro();
-            }
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: primaryBlue,
-            padding: const EdgeInsets.symmetric(vertical: 18),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-            elevation: 0,
-          ),
-          child: Text(
-            _currentPage == pages.length - 1 ? l10n.translate('intro_get_started') : l10n.translate('next'),
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16),
-          ),
-        ),
-      );
-    }
-  }
-}
-
-class CircularProgressPainter extends CustomPainter {
-  final int currentStep;
-  final int totalSteps;
-  final Color color;
-
-  CircularProgressPainter({required this.currentStep, required this.totalSteps, required this.color});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint circle = Paint()..color = const Color(0xFFE0E0E0)..strokeWidth = 4..style = PaintingStyle.stroke;
-    Paint arc = Paint()..color = color..strokeWidth = 4..style = PaintingStyle.stroke..strokeCap = StrokeCap.round;
-
-    Offset center = Offset(size.width / 2, size.height / 2);
-    double radius = min(size.width / 2, size.height / 2);
-    canvas.drawCircle(center, radius, circle);
-
-    double sweepAngle = (2 * pi * currentStep) / totalSteps;
-    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -pi / 2, sweepAngle, false, arc);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
 class IntroPageData {

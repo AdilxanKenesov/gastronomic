@@ -1,7 +1,6 @@
 import '../../domain/entities/restaurant.dart';
 import '../../domain/entities/menu.dart';
 import 'restaurant_model.dart';
-import 'menu_model.dart';
 
 class PaginationMeta {
   final int currentPage;
@@ -47,15 +46,17 @@ class SearchResponse {
 
   factory SearchResponse.fromJson(Map<String, dynamic> json) {
     final data = json['data'] as Map<String, dynamic>;
+    // Backend /api/restaurants/search: data.products = restoranlar.
+    // (data.maps = xarita uchun nuqtalar — hozircha ishlatilmaydi.)
+    final products = (data['products'] as List?) ?? const [];
     return SearchResponse(
-      restaurants: SearchResults.fromJson(
-        data['restaurants'],
-        (item) => RestaurantModel.fromJson(item),
+      restaurants: SearchResults<Restaurant>(
+        data: products
+            .map((item) => RestaurantModel.fromJson(item as Map<String, dynamic>))
+            .cast<Restaurant>()
+            .toList(),
       ),
-      menuItems: SearchResults.fromJson(
-        data['menu_items'],
-        (item) => MenuItemModel.fromJson(item),
-      ),
+      menuItems: SearchResults<MenuItem>(data: const []),
     );
   }
 }

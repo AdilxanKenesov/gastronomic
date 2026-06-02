@@ -31,6 +31,23 @@ class AppLocalizations {
       'nearest_restaurants': 'Eń jaqın restoranlar',
       'no_restaurants_on_map': 'Kartada restoran tabılmadı',
 
+      // Redesign UI
+      'home_title_1': 'Búgin neni',
+      'home_title_accent': 'qáleysiz',
+      'home_title_2': '?',
+      'featured': 'SAYLANǴAN',
+      'top_kitchens': 'Eń jaqsı asxanalar',
+      'see_all': 'Barlıǵı',
+      'explore': 'KÓRIP SHIǴIŃ',
+      'categories': 'Kategoriyalar',
+      'near_you': 'jaqında',
+      'directory': 'dizimi',
+      'filter_all': 'Barlıǵı',
+      'filter_open_now': 'Ashıq',
+      'filter_top_rated': 'Joqarı reyting',
+      'filter_near_me': 'Jaqınımda',
+      'editors_pick': 'SAYLAW',
+
       'banner_text': 'Eń jaqin bolǵan Restoranlar',
       'view_map': 'Kartanı kóriw',
 
@@ -236,6 +253,23 @@ class AppLocalizations {
       'nearby_restaurants': 'Yaqin atrofdagi restoranlar',
       'nearest_restaurants': 'Eng yaqin restoranlar',
       'no_restaurants_on_map': 'Xaritada restoran topilmadi',
+
+      // Redesign UI
+      'home_title_1': 'Bugun nimani',
+      'home_title_accent': 'xohlaysiz',
+      'home_title_2': '?',
+      'featured': 'TANLANGAN',
+      'top_kitchens': 'Eng zo\'r oshxonalar',
+      'see_all': 'Barchasi',
+      'explore': 'KASHF ETING',
+      'categories': 'Kategoriyalar',
+      'near_you': 'yaqinida',
+      'directory': 'ro\'yxati',
+      'filter_all': 'Barchasi',
+      'filter_open_now': 'Hozir ochiq',
+      'filter_top_rated': 'Yuqori reyting',
+      'filter_near_me': 'Yaqinimda',
+      'editors_pick': 'TANLOV',
 
       'banner_text': 'Eng yaqin bo\'lgan Restoranlar',
       'view_map': 'Xaritani ko\'rish',
@@ -444,6 +478,23 @@ class AppLocalizations {
       'nearest_restaurants': 'Ближайшие рестораны',
       'no_restaurants_on_map': 'Рестораны на карте не найдены',
 
+      // Redesign UI
+      'home_title_1': 'Чего вам',
+      'home_title_accent': 'хочется',
+      'home_title_2': 'сегодня?',
+      'featured': 'ИЗБРАННОЕ',
+      'top_kitchens': 'Лучшие кухни',
+      'see_all': 'Все',
+      'explore': 'ОБЗОР',
+      'categories': 'Категории',
+      'near_you': 'рядом',
+      'directory': 'каталог',
+      'filter_all': 'Все',
+      'filter_open_now': 'Открыто',
+      'filter_top_rated': 'Топ рейтинг',
+      'filter_near_me': 'Рядом',
+      'editors_pick': 'ВЫБОР РЕДАКЦИИ',
+
       // Status
       'open': 'Открыто',
       'closed': 'Закрыто',
@@ -650,6 +701,23 @@ class AppLocalizations {
       'nearby_restaurants': 'Nearby restaurants',
       'nearest_restaurants': 'Nearest restaurants',
       'no_restaurants_on_map': 'No restaurants found on map',
+
+      // Redesign UI
+      'home_title_1': 'What are you',
+      'home_title_accent': 'craving',
+      'home_title_2': ' today?',
+      'featured': 'FEATURED',
+      'top_kitchens': 'Top kitchens',
+      'see_all': 'See all',
+      'explore': 'EXPLORE',
+      'categories': 'Categories',
+      'near_you': 'near you',
+      'directory': 'directory',
+      'filter_all': 'All',
+      'filter_open_now': 'Open now',
+      'filter_top_rated': 'Top rated',
+      'filter_near_me': 'Near me',
+      'editors_pick': "EDITOR'S PICK",
 
       // Status
       'open': 'Open',
