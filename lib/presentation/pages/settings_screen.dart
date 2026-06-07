@@ -320,9 +320,9 @@ class SettingsScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  'assets/images/logo1.png',
-                  'assets/images/logo2.png',
                   'assets/images/logo3.png',
+                  'assets/images/logo2.png',
+                  'assets/images/logo1.png',
                 ].map((path) => Container(
                   width: 80,
                   height: 80,
